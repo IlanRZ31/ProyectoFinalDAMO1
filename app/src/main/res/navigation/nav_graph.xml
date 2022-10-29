@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/LoadingFragment">
+
+    <fragment
+        android:id="@+id/LoadingFragment"
+        android:name="ni.edu.uca.petscare.LoadingFragment"
+        android:label="fragment_loading"
+        tools:layout="@layout/fragment_loading" >
+        <action
+            android:id="@+id/acLoadingMostrarMascotas"
+            app:destination="@id/MostrarMascotasFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/MostrarMascotasFragment"
+        android:name="ni.edu.uca.petscare.MostrarMascotasFragment"
+        android:label="fragment_mostrar_mascotas"
+        tools:layout="@layout/fragment_mostrar_mascotas" >
+        <action
+            android:id="@+id/acMostrarMacotasNuevaMascota"
+            app:destination="@id/NuevaMascotaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/NuevaMascotaFragment"
+        android:name="ni.edu.uca.petscare.NuevaMascotaFragment"
+        android:label="fragment_nueva_mascota"
+        tools:layout="@layout/fragment_nueva_mascota" />
+</navigation>
