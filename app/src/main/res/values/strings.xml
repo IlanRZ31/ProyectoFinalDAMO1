@@ -4,4 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="inicar">Inicar</string>
     <string name="nueva_mascota">Nueva Mascota</string>
+    <string name="vacunas">Vacunas</string>
+    <string name="tratamientos">Tratamientos</string>
+    <string name="nueva_vacuna">Nueva vacuna</string>
 </resources>

@@ -4,10 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/DELL/AndroidStudioProjects/PetsCare/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/PetsCare/app/src/main/res/layout/fragment_crear_vacuna.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/PetsCare/app/src/main/res/layout/fragment_loading.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/PetsCare/app/src/main/res/layout/fragment_mostrar_mascotas.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/PetsCare/app/src/main/res/layout/fragment_mostrar_vacunas.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/PetsCare/app/src/main/res/layout/fragment_nueva_mascota.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/PetsCare/app/src/main/res/layout/fragment_vista_mascota.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/DELL/AndroidStudioProjects/PetsCare/app/src/main/res/layout/recycler_mascotas.xml" value="0.21" />
+        <entry key="..\:/Users/DELL/AndroidStudioProjects/PetsCare/app/src/main/res/layout/recycler_vacunas.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>

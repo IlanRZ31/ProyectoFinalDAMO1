@@ -22,10 +22,44 @@
         <action
             android:id="@+id/acMostrarMacotasNuevaMascota"
             app:destination="@id/NuevaMascotaFragment" />
+        <action
+            android:id="@+id/acMostrarMascotasVistaMascota"
+            app:destination="@id/vistaMascotaFragment" />
     </fragment>
     <fragment
         android:id="@+id/NuevaMascotaFragment"
         android:name="ni.edu.uca.petscare.NuevaMascotaFragment"
         android:label="fragment_nueva_mascota"
         tools:layout="@layout/fragment_nueva_mascota" />
+    <fragment
+        android:id="@+id/vistaMascotaFragment"
+        android:name="ni.edu.uca.petscare.VistaMascotaFragment"
+        android:label="fragment_vista_mascota"
+        tools:layout="@layout/fragment_vista_mascota" >
+        <action
+            android:id="@+id/acVistaMascotaMostrarVacunas"
+            app:destination="@id/mostrarVacunasFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mostrarVacunasFragment"
+        android:name="ni.edu.uca.petscare.MostrarVacunasFragment"
+        android:label="fragment_mostrar_vacunas"
+        tools:layout="@layout/fragment_mostrar_vacunas" >
+        <action
+            android:id="@+id/acMostrarVacunasNuevaVacuna"
+            app:destination="@id/nuevaVacunaFragment" />
+        <action
+            android:id="@+id/acMostrarVacunaEditarVacuna"
+            app:destination="@id/editarVacunaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nuevaVacunaFragment"
+        android:name="ni.edu.uca.petscare.NuevaVacunaFragment"
+        android:label="fragment_crear_vacuna"
+        tools:layout="@layout/fragment_nueva_vacuna" />
+    <fragment
+        android:id="@+id/editarVacunaFragment"
+        android:name="ni.edu.uca.petscare.EditarVacunaFragment"
+        android:label="fragment_editar_vacuna"
+        tools:layout="@layout/fragment_editar_vacuna" />
 </navigation>
