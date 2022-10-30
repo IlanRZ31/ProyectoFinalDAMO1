@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import ni.edu.uca.petscare.databinding.FragmentMostrarVacunasBinding
+import ni.edu.uca.petscare.rv_adapters.VacunasAdapter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -45,7 +47,7 @@ class MostrarVacunasFragment : Fragment() {
     }
 
     private fun iniciar() {
-        vacunas = arrayListOf()
+        vacunas = arrayListOf<String>()
         fbinding.btnNuevaVacuna.setOnClickListener {
             Navigation.findNavController(fbinding.root).navigate(R.id.acMostrarVacunasNuevaVacuna)
         }
@@ -61,7 +63,9 @@ class MostrarVacunasFragment : Fragment() {
         vacunas.add("la cinco")
         vacunas.add("la seis")
 
-
+        fbinding.rvVacunas.layoutManager = LinearLayoutManager(context)
+        fbinding.rvVacunas.setHasFixedSize(true)
+        fbinding.rvVacunas.adapter = VacunasAdapter(vacunas, fbinding.root)
 
     }
 

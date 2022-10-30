@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import androidx.core.view.get
 import androidx.recyclerview.widget.RecyclerView
 import ni.edu.uca.petscare.R
-
-class MascotasAdapter(private val mascotaList: List<String>, private val currentView: View): RecyclerView.Adapter<MascotasViewHolder>() {
+// TODO: Cambiar list<String> a la estructura de datos que se vaya a usar
+class MascotasAdapter(private val mascotaList: List<String>, private val currentView: View) :
+    RecyclerView.Adapter<MascotasViewHolder>() {
     private lateinit var currentContext: Context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MascotasViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

@@ -1,10 +1,10 @@
 package ni.edu.uca.petscare
 
 import android.os.Bundle
-import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
-import ni.edu.uca.petscare.databinding.FragmentVistaMascotaBinding
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -13,14 +13,13 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [VistaMascotaFragment.newInstance] factory method to
+ * Use the [EditarMedicamentoFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class VistaMascotaFragment : Fragment() {
+class EditarMedicamentoFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private lateinit var fbinding: FragmentVistaMascotaBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,23 +27,6 @@ class VistaMascotaFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-        setHasOptionsMenu(true) //idc it's deprecated, it works
-    }
-
-    /**
-     * Agregando funcionalidad para el menu de tipo "Kebab"
-     */
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_mascotas, menu)
-
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        //TODO: funcionalidad eliminar
-        when(item.itemId){
-            R.id.iEditar -> Navigation.findNavController(fbinding.root).navigate(R.id.acVistaMascotaEditarMascota)
-        }
-        return true
     }
 
     override fun onCreateView(
@@ -52,18 +34,7 @@ class VistaMascotaFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        fbinding = FragmentVistaMascotaBinding.inflate(layoutInflater)
-        iniciar()
-        return fbinding.root
-    }
-
-    private fun iniciar() {
-        fbinding.btnMenuVacunas.setOnClickListener {
-            Navigation.findNavController(fbinding.root).navigate(R.id.acVistaMascotaMostrarVacunas)
-        }
-        fbinding.btnMenuTratamiento.setOnClickListener {
-            Navigation.findNavController(fbinding.root).navigate(R.id.acVistaMascotaMostrarMedicamentos)
-        }
+        return inflater.inflate(R.layout.fragment_editar_medicamento, container, false)
     }
 
     companion object {
@@ -73,12 +44,12 @@ class VistaMascotaFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment VistaMascotaFragment.
+         * @return A new instance of fragment EditarMedicamentoFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            VistaMascotaFragment().apply {
+            EditarMedicamentoFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
