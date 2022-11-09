@@ -6,7 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.get
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.imageview.ShapeableImageView
 import ni.edu.uca.petscare.R
+import ni.edu.uca.petscare.entidades.Mascota
+import ni.edu.uca.petscare.databinding.RecyclerMascotasBinding
+
 // TODO: Cambiar list<String> a la estructura de datos que se vaya a usar
 class MascotasAdapter(private val mascotaList: List<String>, private val currentView: View) :
     RecyclerView.Adapter<MascotasViewHolder>() {
@@ -23,5 +27,5 @@ class MascotasAdapter(private val mascotaList: List<String>, private val current
     }
 
     override fun getItemCount(): Int = mascotaList.size
-
 }
+

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/LoadingFragment">
+
+    <fragment
+        android:id="@+id/LoadingFragment"
+        android:name="ni.edu.uca.petscare.LoadingFragment"
+        android:label="fragment_loading"
+        tools:layout="@layout/fragment_loading" >
+        <action
+            android:id="@+id/acLoadingMostrarMascotas"
+            app:destination="@id/MostrarMascotasFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/MostrarMascotasFragment"
+        android:name="ni.edu.uca.petscare.MostrarMascotasFragment"
+        android:label="fragment_mostrar_mascotas"
+        tools:layout="@layout/fragment_mostrar_mascotas" >
+        <action
+            android:id="@+id/acMostrarMacotasNuevaMascota"
+            app:destination="@id/NuevaMascotaFragment" />
+        <action
+            android:id="@+id/acMostrarMascotasVistaMascota"
+            app:destination="@id/vistaMascotaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/NuevaMascotaFragment"
+        android:name="ni.edu.uca.petscare.NuevaMascotaFragment"
+        android:label="fragment_nueva_mascota"
+        tools:layout="@layout/fragment_nueva_mascota" />
+    <fragment
+        android:id="@+id/vistaMascotaFragment"
+        android:name="ni.edu.uca.petscare.VistaMascotaFragment"
+        android:label="fragment_vista_mascota"
+        tools:layout="@layout/fragment_vista_mascota" >
+        <action
+            android:id="@+id/acVistaMascotaMostrarVacunas"
+            app:destination="@id/mostrarVacunasFragment" />
+        <action
+            android:id="@+id/acVistaMascotaMostrarMedicamentos"
+            app:destination="@id/mostrarMedicamentosFragment" />
+        <action
+            android:id="@+id/acVistaMascotaEditarMascota"
+            app:destination="@id/editarMascotaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mostrarVacunasFragment"
+        android:name="ni.edu.uca.petscare.MostrarVacunasFragment"
+        android:label="fragment_mostrar_vacunas"
+        tools:layout="@layout/fragment_mostrar_vacunas" >
+        <action
+            android:id="@+id/acMostrarVacunasNuevaVacuna"
+            app:destination="@id/nuevaVacunaFragment" />
+        <action
+            android:id="@+id/acMostrarVacunaEditarVacuna"
+            app:destination="@id/editarVacunaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nuevaVacunaFragment"
+        android:name="ni.edu.uca.petscare.NuevaVacunaFragment"
+        android:label="fragment_crear_vacuna"
+        tools:layout="@layout/fragment_nueva_vacuna" />
+    <fragment
+        android:id="@+id/editarVacunaFragment"
+        android:name="ni.edu.uca.petscare.EditarVacunaFragment"
+        android:label="fragment_editar_vacuna"
+        tools:layout="@layout/fragment_editar_vacuna" />
+    <fragment
+        android:id="@+id/mostrarMedicamentosFragment"
+        android:name="ni.edu.uca.petscare.MostrarMedicamentosFragment"
+        android:label="fragment_mostrar_medicamentos"
+        tools:layout="@layout/fragment_mostrar_medicamentos" >
+        <action
+            android:id="@+id/acMostrarMedicamentosEditarMedicamentos"
+            app:destination="@id/editarMedicamentoFragment" />
+        <action
+            android:id="@+id/acMostrarMedicamentoNuevoMedicamento"
+            app:destination="@id/nuevoMedicamentoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editarMedicamentoFragment"
+        android:name="ni.edu.uca.petscare.EditarMedicamentoFragment"
+        android:label="fragment_editar_medicamento"
+        tools:layout="@layout/fragment_editar_medicamento" />
+    <fragment
+        android:id="@+id/nuevoMedicamentoFragment"
+        android:name="ni.edu.uca.petscare.NuevoMedicamentoFragment"
+        android:label="fragment_nuevo_medicamento"
+        tools:layout="@layout/fragment_nuevo_medicamento" />
+    <fragment
+        android:id="@+id/editarMascotaFragment"
+        android:name="ni.edu.uca.petscare.EditarMascotaFragment"
+        android:label="fragment_editar_mascota"
+        tools:layout="@layout/fragment_editar_mascota" />
+</navigation>

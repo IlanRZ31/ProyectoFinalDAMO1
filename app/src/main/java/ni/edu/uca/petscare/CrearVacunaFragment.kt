@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import ni.edu.uca.petscare.databinding.FragmentNuevaVacunaBinding
+import ni.edu.uca.petscare.databinding.FragmentNuevoMedicamentoBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,6 +22,7 @@ class NuevaVacunaFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var fbinding: FragmentNuevaVacunaBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +37,20 @@ class NuevaVacunaFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_nueva_vacuna, container, false)
+        fbinding = FragmentNuevaVacunaBinding.inflate(layoutInflater)
+        return fbinding.root
+    }
+    private fun iniciar() {
+        fbinding.etFechaProgramada.setOnClickListener{showDatePickerDialog()}
+
+    }
+
+    private fun showDatePickerDialog() {
+        val datePicker = DatePickerFragment {day, month, year -> onDateSelected(day, month, year)}
+        datePicker.show(parentFragmentManager, "datePicker" )
+    }
+    fun onDateSelected(day: Int, month: Int, year: Int){
+        fbinding.etFechaProgramada.setText("$year-$month-0$day")
     }
 
     companion object {

@@ -8,7 +8,8 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-
+import ni.edu.uca.petscare.databinding.FragmentEditarMedicamentoBinding
+import ni.edu.uca.petscare.databinding.FragmentEditarVacunaBinding
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -26,6 +27,7 @@ class EditarVacunaFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var fbinding: FragmentEditarVacunaBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -46,9 +48,21 @@ class EditarVacunaFragment : Fragment() {
         // Inflate the layout for this fragment
         //Atrasado Programado Aplicado
 
-
+        fbinding = FragmentEditarVacunaBinding.inflate(layoutInflater)
+        iniciar()
         return inflater.inflate(R.layout.fragment_editar_vacuna, container, false)
 
+    }
+    private fun iniciar() {
+        fbinding.etFechaProgEditar.setOnClickListener{showDatePickerDialog()}
+
+    }
+    private fun showDatePickerDialog() {
+        val datePicker = DatePickerFragment {day, month, year -> onDateSelected(day, month, year)}
+        datePicker.show(parentFragmentManager, "datePicker" )
+    }
+    fun onDateSelected(day: Int, month: Int, year: Int){
+        fbinding.etFechaProgEditar.setText("$year-$month-0$day")
     }
 
     companion object {

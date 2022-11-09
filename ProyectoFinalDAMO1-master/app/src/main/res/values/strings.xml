@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">PetsCare</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="inicar">Inicar</string>
+    <string name="nueva_mascota">Nueva Mascota</string>
+    <string name="vacunas">Vacunas</string>
+    <string name="tratamientos">Tratamientos</string>
+    <string name="nueva_vacuna">Nueva vacuna</string>
+    <string name="nuevo_medicamento">Nuevo medicamento</string>
+    <string name="eliminar_mascota">Eliminar Mascota</string>
+    <string name="editar_mascota">Editar Mascota</string>
+    <string name="programar_vacuna">Programar Vacuna</string>
+    <string name="fecha_programada">Fecha Programada</string>
+    <string name="guardar">Guardar</string>
+    <string name="vacuna">Vacuna</string>
+    <string name="clinica">Clinica</string>
+
+    <string-array name="estado_vacuna">
+        <item>Atrasado</item>
+        <item>Programado</item>
+        <item>Aplicado</item>
+    </string-array>
+</resources>

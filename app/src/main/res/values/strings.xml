@@ -15,10 +15,25 @@
     <string name="guardar">Guardar</string>
     <string name="vacuna">Vacuna</string>
     <string name="clinica">Clinica</string>
+    <string name="nombre_mascota">NOMBRE</string>
+    <string name="tipo_mascota">TIPO</string>
+    <string name="raza_mascota">RAZA</string>
+    <string name="fecha_de_nacimientoM">Fecha de Nacimiento</string>
+    <string name="fecha">xx/xx/xxxx</string>
+    <string name="nueva_mascotas">NUEVA MASCOTA</string>
 
     <string-array name="estado_vacuna">
         <item>Atrasado</item>
         <item>Programado</item>
         <item>Aplicado</item>
+    </string-array>
+
+    <string-array name="tiposMascotas">
+        <item>Perro</item>
+        <item>Gato</item>
+        <item>Conejo</item>
+        <item>Hamster</item>
+        <item>Ave</item>
+        <item>Otro</item>
     </string-array>
 </resources>
