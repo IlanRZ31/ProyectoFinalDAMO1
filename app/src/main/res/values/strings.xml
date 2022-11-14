@@ -21,6 +21,11 @@
     <string name="fecha_de_nacimientoM">Fecha de Nacimiento</string>
     <string name="fecha">xx/xx/xxxx</string>
     <string name="nueva_mascotas">NUEVA MASCOTA</string>
+    <string name="medicamento">Medicamento:</string>
+    <string name="hora">Hora:</string>
+    <string name="vacunaRV">Vacuna:</string>
+    <string name="fecha_programadaRV">Fecha programada:</string>
+    <string name="estadoRV">Estado:</string>
 
     <string-array name="estado_vacuna">
         <item>Atrasado</item>

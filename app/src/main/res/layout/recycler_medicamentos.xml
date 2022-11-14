@@ -2,22 +2,37 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frag_medicamentos"
+    style="@style/Widget.PetsCare.RecyclerView"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/frag_medicamentos">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/tvNombreMedicamentoRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textSize="19sp"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="10dp"
+        android:paddingStart="40dp"
+        android:text="@string/medicamento"
+        android:textColor="@color/white"
+        android:textSize="19sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvHoraDosisPendienteRV"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="AAAAAAAAA" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvHoraDosisPendienteRV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:paddingStart="40dp"
+        android:text="@string/hora"
+        android:textColor="@color/white"
+        android:textSize="19sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNombreMedicamentoRecycler"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

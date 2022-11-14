@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:padding="10dp"
     android:orientation="vertical"
-    tools:context=".MostrarMascotasFragment">
+    tools:context=".MostrarMascotasFragment"
+    android:background="@color/background">
 
     <Button
         android:id="@+id/btnNuevaMascota"
+        style="@style/Widget.PetsCare.GreenButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="@string/nueva_mascota"
-        android:textSize="14sp" />
+        android:text="@string/nueva_mascota" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMascotas"

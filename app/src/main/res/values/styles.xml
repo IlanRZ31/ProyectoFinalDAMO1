@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.PetsCare.GreenButton" parent="Widget.MaterialComponents.Button">
+        <item name="android:backgroundTint">@color/verdeOscuro</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="fontFamily">@font/poppins_semibold</item>
+    </style>
+
+    <style name="Widget.PetsCare.RecyclerView" parent="">
+        <item name="android:background">@drawable/recycler_view_bg</item>
+        <item name="android:gradientRadius">18dp</item>
+        <item name="android:layout_marginTop">25dp</item>
+        <item name="android:layout_marginLeft">25sp</item>
+        <item name="android:layout_marginRight">25sp</item>
+    </style>
+</resources>

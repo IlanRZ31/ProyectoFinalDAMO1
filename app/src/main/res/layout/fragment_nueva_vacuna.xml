@@ -4,10 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NuevaVacunaFragment">
+    tools:context=".NuevaVacunaFragment"
+    android:background="@color/background"
+    android:padding="20dp">
 
 
     <TextView
+        android:textSize="30sp"
+        android:textColor="@color/white"
         android:id="@+id/tvProgramarVacuna"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,8 +21,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:backgroundTint="@color/white"
         android:id="@+id/etVacuna"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:ems="10"
@@ -30,6 +38,8 @@
         app:layout_constraintTop_toBottomOf="@id/tvVacuna" />
 
     <TextView
+        android:textSize="20sp"
+        android:textColor="@color/white"
         android:id="@+id/tvFechaProgramada"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,12 +47,16 @@
         android:text="@string/fecha_programada"
         app:layout_constraintBottom_toTopOf="@+id/etFechaProgramada"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.344"
+        app:layout_constraintHorizontal_bias="0.124"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:backgroundTint="@color/white"
         android:id="@+id/etClinica"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
@@ -53,6 +67,8 @@
         tools:layout_editor_absoluteY="278dp" />
 
     <TextView
+        android:textColor="@color/white"
+        android:textSize="20sp"
         android:id="@+id/tvVacuna"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -60,25 +76,31 @@
         android:text="@string/vacuna"
         app:layout_constraintBottom_toTopOf="@+id/etVacuna"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.274"
+        app:layout_constraintHorizontal_bias="0.124"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvProgramarVacuna" />
 
     <Button
         android:id="@+id/btnGuardar"
+        android:layout_marginTop="40dp"
+        style="@style/Widget.PetsCare.GreenButton"
+        android:textSize="20sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="360dp"
         android:backgroundTint="@color/celeste"
         android:text="@string/guardar"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etClinica"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:backgroundTint="@color/white"
         android:id="@+id/etFechaProgramada"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="12dp"
@@ -94,6 +116,8 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
+        android:textColor="@color/white"
+        android:textSize="20sp"
         android:id="@+id/tvClinica"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -101,7 +125,7 @@
         android:text="@string/clinica"
         app:layout_constraintBottom_toTopOf="@+id/etClinica"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.271"
+        app:layout_constraintHorizontal_bias="0.123"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

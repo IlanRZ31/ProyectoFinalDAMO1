@@ -1,138 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:padding="20dp"
     tools:context=".EditarMascotaFragment">
 
     <TextView
         android:id="@+id/tvTitulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:text="EDITAR MASCOTA"
         android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="30sp"
         android:textStyle="bold"
-        android:textSize="30sp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/tvENombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitulo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp"
         android:text="NOMBRE"
+        android:textColor="@color/white"
         android:textSize="20sp"
-        android:layout_marginTop="40dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitulo" />
 
     <EditText
         android:id="@+id/etENombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/tvENombre"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:hint="Duke"
-        android:textSize="20sp"
         android:layout_marginTop="10dp"
-        />
+        android:backgroundTint="@color/white"
+        android:hint="Duke"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvENombre" />
 
     <TextView
         android:id="@+id/tvETipo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/etENombre"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="25dp"
+        android:backgroundTint="@color/white"
         android:text="TIPO"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:textSize="20sp"
-        android:layout_marginTop="25dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etENombre" />
 
     <Spinner
         android:id="@+id/spETipo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginTop="10dp"
+        android:entries="@array/tiposMascotas"
+        android:spinnerMode="dropdown"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvETipo"
-        android:entries="@array/tiposMascotas"
-        android:spinnerMode="dropdown"/>
+        app:layout_constraintTop_toBottomOf="@id/tvETipo" />
 
     <TextView
         android:id="@+id/tvERaza"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/spETipo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="25dp"
+        android:backgroundTint="@color/white"
         android:text="@string/raza_mascota"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         android:textSize="20sp"
-        android:layout_marginTop="25dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spETipo" />
 
     <EditText
         android:id="@+id/etERaza"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/tvERaza"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:hint="Husky canadiense"
-        android:textSize="20sp"
         android:layout_marginTop="10dp"
-        />
+        android:backgroundTint="@color/white"
+        android:hint="Husky canadiense"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvERaza" />
+
     <TextView
         android:id="@+id/tvEFechaNacimiento"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/etERaza"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="@string/fecha_de_nacimientoM"
-        android:textSize="20sp"
         android:layout_marginTop="25dp"
-        />
+        android:text="@string/fecha_de_nacimientoM"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etERaza" />
 
     <EditText
+
         android:id="@+id/etEFechaNacimiento"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/tvEFechaNacimiento"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:inputType="date"
-        android:hint="@string/fecha"
-        android:textSize="20sp"
         android:layout_marginTop="10dp"
+        android:backgroundTint="@color/white"
         android:clickable="false"
         android:focusable="false"
-        />
+        android:hint="@string/fecha"
+        android:inputType="date"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEFechaNacimiento" />
+
     <TextView
         android:id="@+id/tvEPeso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/etEFechaNacimiento"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="25dp"
         android:text="@string/raza_mascota"
+        android:textColor="@color/white"
         android:textSize="20sp"
-        android:layout_marginTop="25dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etEFechaNacimiento" />
 
     <EditText
         android:id="@+id/etEPeso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/tvEPeso"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:hint="0 Kg"
-        android:textSize="20sp"
         android:layout_marginTop="10dp"
+        android:backgroundTint="@color/white"
+        android:hint="0 Kg"
         android:inputType="number"
-        />
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEPeso" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/ivEImagen"
@@ -140,7 +167,7 @@
         android:layout_height="125dp"
         android:layout_marginTop="8dp"
         android:src="@drawable/usuario"
-
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.09"
         app:layout_constraintStart_toStartOf="parent"
@@ -150,10 +177,14 @@
         android:id="@+id/btnEGuardarNuevMed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp"
+        android:backgroundTint="@color/celeste"
         android:text="Guardar"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/ivEImagen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ivEImagen"
-        app:layout_constraintTop_toBottomOf="@+id/etEPeso" />
+        app:layout_constraintTop_toTopOf="@+id/ivEImagen" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout></ScrollView>

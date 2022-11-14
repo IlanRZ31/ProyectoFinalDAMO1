@@ -2,23 +2,52 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frag_vacunas"
+    style="@style/Widget.PetsCare.RecyclerView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    android:id="@+id/frag_vacunas">
+    android:background="@drawable/rv_bg_vacuna_programada">
 
     <TextView
         android:id="@+id/tvNombreVacunaRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:textAlignment="center"
+        android:layout_marginBottom="10dp"
+        android:paddingStart="40dp"
+        android:text="@string/vacunaRV"
+        android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tvFechaProgramadaRV"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:text="AAAAAAA" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvFechaProgramadaRV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:paddingStart="40dp"
+        android:text="@string/fecha_programadaRV"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvEstadoVacunaRV"
+        app:layout_constraintTop_toBottomOf="@+id/tvNombreVacunaRecycler" />
+
+    <TextView
+        android:id="@+id/tvEstadoVacunaRV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:paddingStart="40dp"
+        android:text="@string/estadoRV"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/tvFechaProgramadaRV"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

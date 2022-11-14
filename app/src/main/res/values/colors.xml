@@ -7,6 +7,12 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <!-- Colores personalizados-->
+    <color name="background">#282A35</color>
     <color name="azulOscuro">#1F212B</color>
     <color name="celeste">#00A0DC</color>
+    <color name="verdeOscuro">#3B5B3A</color>
+    <color name="amarillo">#C8BB47</color>
+    <color name="verde">#47AA5D</color>
+    <color name="rojo">#DC0000</color>
 </resources>
