@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
@@ -35,14 +36,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.126"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvEditMedicamento" />
+            app:layout_constraintTop_toBottomOf="@+id/tvEditMedicamento"
+            />
 
         <EditText
             android:id="@+id/etEditMedicamento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:backgroundTint="@color/white"
             android:ems="10"
             android:hint=""
             android:inputType="textPersonName"
@@ -52,7 +53,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.203"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvMedicamentoEdit" />
+            app:layout_constraintTop_toBottomOf="@+id/tvMedicamentoEdit"
+            android:background="@drawable/et_style"
+            android:backgroundTint="@color/backgroundEt"
+            android:paddingLeft="30px"
+            android:paddingTop="20px"
+            android:paddingBottom="20px"/>
 
         <TextView
             android:id="@+id/tvEditDosisDiarias"
@@ -72,7 +78,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:backgroundTint="@color/white"
             android:ems="10"
             android:inputType="textPersonName"
             android:textColor="@color/white"
@@ -81,14 +86,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.203"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvEditDosisDiarias" />
+            app:layout_constraintTop_toBottomOf="@+id/tvEditDosisDiarias"
+            android:background="@drawable/et_style"
+            android:backgroundTint="@color/backgroundEt"
+            android:paddingLeft="30px"
+            android:paddingTop="20px"
+            android:paddingBottom="20px"/>
 
         <EditText
             android:id="@+id/etHoraPrimeraEditar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:backgroundTint="@color/white"
             android:clickable="false"
             android:ems="10"
             android:focusable="false"
@@ -99,7 +108,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.203"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvHoraPrimDEditar" />
+            app:layout_constraintTop_toBottomOf="@+id/tvHoraPrimDEditar"
+            android:background="@drawable/et_style"
+            android:backgroundTint="@color/backgroundEt"
+            android:paddingLeft="30px"
+            android:paddingTop="20px"
+            android:paddingBottom="20px"/>
 
         <Button
             android:id="@+id/btnEliminarEditMed"
@@ -123,33 +137,41 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:backgroundTint="@color/white"
+            android:background="@drawable/et_style"
+            android:backgroundTint="@color/backgroundEt"
             android:ems="10"
             android:inputType="textPersonName"
+            android:paddingLeft="30px"
+            android:paddingTop="20px"
+            android:paddingBottom="20px"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.179"
+            app:layout_constraintHorizontal_bias="0.4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvHoraSegDEditar" />
 
         <EditText
             android:id="@+id/etFechaFinEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="372dp"
+            android:layout_height="41dp"
             android:layout_marginTop="12dp"
-            android:backgroundTint="@color/white"
+            android:background="@drawable/et_style"
+            android:backgroundTint="@color/backgroundEt"
             android:clickable="false"
             android:ems="10"
             android:focusable="false"
             android:hint="@string/fecha"
             android:inputType="date"
+            android:paddingLeft="30px"
+            android:paddingTop="20px"
+            android:paddingBottom="20px"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.164"
+            app:layout_constraintHorizontal_bias="0.022"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvFechaFinEdit" />
 

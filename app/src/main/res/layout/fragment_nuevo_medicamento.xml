@@ -42,7 +42,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:backgroundTint="@color/white"
         android:ems="10"
         android:inputType="textPersonName"
         android:textColor="@color/white"
@@ -51,7 +50,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.164"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvMedicamento" />
+        app:layout_constraintTop_toBottomOf="@+id/tvMedicamento"
+        android:background="@drawable/et_style"
+        android:backgroundTint="@color/backgroundEt"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"/>
 
     <TextView
         android:id="@+id/tvIntervaloNuevoMed"
@@ -71,7 +75,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:backgroundTint="@color/white"
         android:ems="10"
         android:inputType="numberSigned"
         android:textColor="@color/white"
@@ -80,14 +83,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.164"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvIntervaloNuevoMed" />
+        app:layout_constraintTop_toBottomOf="@+id/tvIntervaloNuevoMed"
+        android:background="@drawable/et_style"
+        android:backgroundTint="@color/backgroundEt"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"/>
 
     <EditText
         android:id="@+id/etHoraPrimNuevMed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:backgroundTint="@color/white"
         android:clickable="false"
         android:ems="10"
         android:focusable="false"
@@ -98,14 +105,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.164"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvHoraPrimDosis" />
+        app:layout_constraintTop_toBottomOf="@+id/tvHoraPrimDosis"
+        android:background="@drawable/et_style"
+        android:backgroundTint="@color/backgroundEt"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"/>
 
     <EditText
         android:id="@+id/editTextDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:backgroundTint="@color/white"
         android:clickable="false"
         android:ems="10"
         android:focusable="false"
@@ -117,7 +128,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.164"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvFechaFinNuevMed" />
+        app:layout_constraintTop_toBottomOf="@+id/tvFechaFinNuevMed"
+        android:background="@drawable/et_style"
+        android:backgroundTint="@color/backgroundEt"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"/>
 
     <TextView
         android:id="@+id/tvHoraPrimDosis"

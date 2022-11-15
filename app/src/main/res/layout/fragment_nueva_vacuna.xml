@@ -24,7 +24,6 @@
         android:textSize="20sp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:backgroundTint="@color/white"
         android:id="@+id/etVacuna"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,7 +34,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvVacuna" />
+        app:layout_constraintTop_toBottomOf="@id/tvVacuna"
+        android:background="@drawable/et_style"
+        android:backgroundTint="@color/backgroundEt"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"/>
 
     <TextView
         android:textSize="20sp"
@@ -54,7 +58,6 @@
         android:textSize="20sp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:backgroundTint="@color/white"
         android:id="@+id/etClinica"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -64,7 +67,12 @@
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvClinica"
-        tools:layout_editor_absoluteY="278dp" />
+        tools:layout_editor_absoluteY="278dp"
+        android:background="@drawable/et_style"
+        android:backgroundTint="@color/backgroundEt"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"/>
 
     <TextView
         android:textColor="@color/white"
@@ -98,7 +106,6 @@
     <EditText
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:backgroundTint="@color/white"
         android:id="@+id/etFechaProgramada"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -113,7 +120,12 @@
         app:layout_constraintBottom_toTopOf="@+id/tvClinica"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/et_style"
+        android:backgroundTint="@color/backgroundEt"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"/>
 
     <TextView
         android:textColor="@color/white"

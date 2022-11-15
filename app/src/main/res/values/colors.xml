@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <!-- Colores personalizados-->
     <color name="background">#282A35</color>
+    <color name="backgroundEt">#1f212b</color>
     <color name="azulOscuro">#1F212B</color>
     <color name="celeste">#00A0DC</color>
     <color name="verdeOscuro">#3B5B3A</color>

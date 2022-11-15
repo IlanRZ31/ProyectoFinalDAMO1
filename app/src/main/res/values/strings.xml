@@ -2,7 +2,7 @@
     <string name="app_name">PetsCare</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="inicar">Inicar</string>
+    <string name="inicar">Iniciar</string>
     <string name="nueva_mascota">Nueva Mascota</string>
     <string name="vacunas">Vacunas</string>
     <string name="tratamientos">Tratamientos</string>
@@ -15,12 +15,12 @@
     <string name="guardar">Guardar</string>
     <string name="vacuna">Vacuna</string>
     <string name="clinica">Clinica</string>
-    <string name="nombre_mascota">NOMBRE</string>
-    <string name="tipo_mascota">TIPO</string>
-    <string name="raza_mascota">RAZA</string>
+    <string name="nombre_mascota">Nombre</string>
+    <string name="tipo_mascota">Tipo</string>
+    <string name="raza_mascota">Raza</string>
     <string name="fecha_de_nacimientoM">Fecha de Nacimiento</string>
     <string name="fecha">xx/xx/xxxx</string>
-    <string name="nueva_mascotas">NUEVA MASCOTA</string>
+    <string name="nueva_mascotas">Nueva mascota</string>
     <string name="medicamento">Medicamento:</string>
     <string name="hora">Hora:</string>
     <string name="vacunaRV">Vacuna:</string>

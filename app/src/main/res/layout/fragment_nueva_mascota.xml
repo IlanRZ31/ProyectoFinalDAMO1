@@ -42,14 +42,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:backgroundTint="@color/white"
             android:hint="Duke"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvNombre" />
+            app:layout_constraintTop_toBottomOf="@+id/tvNombre"
+            android:background="@drawable/et_style"
+            android:backgroundTint="@color/backgroundEt"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            />
 
         <TextView
             android:id="@+id/tvTipo"
@@ -88,14 +93,14 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spTipo" />
+            app:layout_constraintTop_toBottomOf="@+id/spTipo"
+            />
 
         <EditText
             android:id="@+id/etRaza"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:backgroundTint="@color/white"
             android:hint="Husky canadiense"
             android:minHeight="48dp"
             android:textColor="@color/white"
@@ -103,7 +108,12 @@
             android:textSize="0sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvRaza" />
+            app:layout_constraintTop_toBottomOf="@+id/tvRaza"
+            android:background="@drawable/et_style"
+            android:backgroundTint="@color/backgroundEt"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"/>
 
         <TextView
             android:id="@+id/tvFechaNacimiento"
@@ -122,7 +132,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:backgroundTint="@color/white"
             android:clickable="false"
             android:focusable="false"
             android:hint="@string/fecha"
@@ -132,7 +141,12 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvFechaNacimiento" />
+            app:layout_constraintTop_toBottomOf="@+id/tvFechaNacimiento"
+            android:background="@drawable/et_style"
+            android:backgroundTint="@color/backgroundEt"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"/>
 
         <TextView
             android:id="@+id/tvPeso"
@@ -151,7 +165,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:backgroundTint="@color/white"
             android:hint="0"
             android:inputType="number"
             android:textColor="@color/white"
@@ -159,7 +172,12 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvPeso" />
+            app:layout_constraintTop_toBottomOf="@+id/tvPeso"
+            android:background="@drawable/et_style"
+            android:backgroundTint="@color/backgroundEt"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"/>
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivImagen"
