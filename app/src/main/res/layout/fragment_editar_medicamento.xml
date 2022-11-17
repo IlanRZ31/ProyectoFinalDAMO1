@@ -133,26 +133,6 @@
             app:layout_constraintVertical_bias="0.019" />
 
         <EditText
-            android:id="@+id/etHoraSegDEditar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/et_style"
-            android:backgroundTint="@color/backgroundEt"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:paddingLeft="30px"
-            android:paddingTop="20px"
-            android:paddingBottom="20px"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvHoraSegDEditar" />
-
-        <EditText
             android:id="@+id/etFechaFinEdit"
             android:layout_width="372dp"
             android:layout_height="41dp"
@@ -193,40 +173,27 @@
             android:id="@+id/tvFechaFinEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Fecha de finalizacion"
+            android:layout_marginTop="20dp"
+            android:text="Fecha de finalización"
             android:textColor="@color/white"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.128"
+            app:layout_constraintHorizontal_bias="0.193"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etHoraSegDEditar" />
+            app:layout_constraintTop_toBottomOf="@+id/etHoraPrimeraEditar" />
 
         <TextView
             android:id="@+id/tvHoraPrimDEditar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Hora de la primera dosis"
+            android:text="Intérvalo de tiempo"
             android:textColor="@color/white"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.158"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etDosisDEditarMed" />
-
-        <TextView
-            android:id="@+id/tvHoraSegDEditar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Hora de la segunda dosis"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.142"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etHoraPrimeraEditar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
