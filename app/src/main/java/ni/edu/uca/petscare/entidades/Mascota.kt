@@ -6,12 +6,13 @@ import java.time.LocalDate
 import java.util.*
 
 class Mascota(
-    val nombre: String,
-    val tipo: String,
-    val raza: String,
-    val fechaNacimiento: LocalDate,
-    val peso: Int,
-    val image: ShapeableImageView
+    var idMascota: Int,
+    var nombre: String,
+    var tipo: String,
+    var raza: String,
+    var fechaNacimiento: LocalDate,
+    var peso: Int,
+    var image: ShapeableImageView
 
     ) {
 }
