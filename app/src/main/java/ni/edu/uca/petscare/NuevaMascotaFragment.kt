@@ -101,7 +101,7 @@ class NuevaMascotaFragment : Fragment() {
                 val image = ivImagen
 
                 //ivImagen
-                val pets = Mascota(nombre, tipo, raza, date, peso, image)
+                val pets = Mascota(1,nombre, tipo, raza, date, peso, image)
                 listPets.add(pets)
 
 
