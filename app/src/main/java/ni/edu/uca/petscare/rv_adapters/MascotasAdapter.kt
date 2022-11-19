@@ -11,10 +11,10 @@ import ni.edu.uca.petscare.R
 import ni.edu.uca.petscare.entidades.Mascota
 import ni.edu.uca.petscare.databinding.RecyclerMascotasBinding
 
-// TODO: Cambiar list<String> a la estructura de datos que se vaya a usar
-class MascotasAdapter(private val mascotaList: List<String>, private val currentView: View) :
+class MascotasAdapter(private val mascotaList: ArrayList<Mascota>, private val currentView: View) :
     RecyclerView.Adapter<MascotasViewHolder>() {
     private lateinit var currentContext: Context
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MascotasViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         currentContext = parent.context
@@ -22,8 +22,8 @@ class MascotasAdapter(private val mascotaList: List<String>, private val current
     }
 
     override fun onBindViewHolder(holder: MascotasViewHolder, position: Int) {
-        val item = mascotaList[position]
-        holder.load(item, currentView)
+        val mascota: Mascota = mascotaList[position]
+        holder.load(mascota, currentView)
     }
 
     override fun getItemCount(): Int = mascotaList.size
