@@ -1,36 +1,73 @@
 package ni.edu.uca.petscare.dao
 
 import android.os.Build
+import android.os.Parcel
+import android.os.Parcelable
+import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.google.android.material.imageview.ShapeableImageView
 import ni.edu.uca.petscare.entidades.Mascota
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
-class DaoMascota {
+
+class DaoMascota() : Parcelable {
+    private var _mascota = MutableLiveData<Mascota>()
     var listMascota = ArrayList<Mascota>()
+
+    constructor(parcel: Parcel) : this() {
+
+    }
 
     /**
      * Agrega una mascota al arrayList
      * Devuelve true si fue exitoso, false si hubo un error
      * */
     fun agregarMascota(
-        idMascota: Int,
         nombreMascota: String,
         tipoMascota: String,
         raza: String,
-        fechaNacimiento: LocalDate,
+        date: LocalDate,
         peso: Int,
         image: ShapeableImageView
     ): Boolean {
+        val idMascota = crearIdMascota()
         try {
+            Log.wtf("DAO_MASCOTA", "AL MENOS LLEGA ACA")
             val mascota =
-                Mascota(idMascota, nombreMascota, tipoMascota, raza, fechaNacimiento, peso, image)
+                Mascota(idMascota, nombreMascota, tipoMascota, raza, date, peso, image)
             listMascota.add(mascota)
             return true
         } catch (ex: Exception) {
             ex.printStackTrace()
         }
         return false
+    }
+
+    /**
+     * Este metodo obtiene el ultimo idMascota del registro con el fin de crear una nueva id de mascota
+     * */
+    private fun crearIdMascota(): Int {
+        var idMascota = 1
+        var i = 0
+        try {
+            do {
+                if (listMascota.isEmpty()) {
+                    return idMascota
+                } else {
+                    if (idMascota <= listMascota[i].idMascota) {
+                        idMascota = listMascota[i].idMascota
+                    }
+                }
+                i++
+            } while (i < listMascota.size)
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            return 0
+        }
+        return idMascota + 1
     }
 
     /**
@@ -70,11 +107,11 @@ class DaoMascota {
      * Este metodo elimina un registro de mascota especificado por el id de mascota
      * Devuelve true si fue exitoso, falsse si hubo un error
      * */
-    fun eliminarMascota(idMascota: Int): Boolean{
+    fun eliminarMascota(idMascota: Int): Boolean {
         try {
             var i = 0
             while (i < listMascota.size) {
-                if(listMascota[i].idMascota == idMascota){
+                if (listMascota[i].idMascota == idMascota) {
                     listMascota.removeAt(i)
                     return true
                 }
@@ -171,7 +208,27 @@ class DaoMascota {
         return mascotas
     }
 
-    fun setListMascotas(mascotas: ArrayList<Mascota>){
+    fun setListMascotas(mascotas: ArrayList<Mascota>) {
         listMascota = mascotas
     }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<DaoMascota> {
+        override fun createFromParcel(parcel: Parcel): DaoMascota {
+            return DaoMascota(parcel)
+        }
+
+        override fun newArray(size: Int): Array<DaoMascota?> {
+            return arrayOfNulls(size)
+        }
+    }
+
+
 }

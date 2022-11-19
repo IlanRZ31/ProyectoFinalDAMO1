@@ -30,7 +30,10 @@
         android:id="@+id/NuevaMascotaFragment"
         android:name="ni.edu.uca.petscare.NuevaMascotaFragment"
         android:label="fragment_nueva_mascota"
-        tools:layout="@layout/fragment_nueva_mascota" />
+        tools:layout="@layout/fragment_nueva_mascota" >
+        <argument android:name="daoMascotas"
+            app:argType="ni.edu.uca.petscare.dao.DaoMascota" />
+    </fragment>
     <fragment
         android:id="@+id/vistaMascotaFragment"
         android:name="ni.edu.uca.petscare.VistaMascotaFragment"

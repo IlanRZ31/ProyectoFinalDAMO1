@@ -1,11 +1,13 @@
 package ni.edu.uca.petscare
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import ni.edu.uca.petscare.dao.DaoMascota
 import ni.edu.uca.petscare.databinding.FragmentMostrarMascotasBinding
@@ -39,17 +41,32 @@ class MostrarMascotasFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         fbinding = FragmentMostrarMascotasBinding.inflate(layoutInflater)
+        val navController = findNavController()
+        /* Codigo que toma los valores del siguiente fragmento */
+        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<DaoMascota>("DaoMascota")
+            ?.observe(viewLifecycleOwner) {result -> mascotas = result}
         iniciar()
         return fbinding.root
     }
 
-    //TODO(ENVIAR DAO AL OTRO FRAGMENT)
     private fun iniciar() {
-        /**
-         * Navegar al fragmento "Nuevas mascotas"
-         */
+        /* Navegar al fragmento "Nuevas mascotas" */
         fbinding.btnNuevaMascota.setOnClickListener {
-            Navigation.findNavController(fbinding.root).navigate(R.id.acMostrarMacotasNuevaMascota)
+            val action = MostrarMascotasFragmentDirections.acMostrarMacotasNuevaMascota(mascotas) // might fail
+            Navigation.findNavController(fbinding.root).navigate(action)
+        }
+        initRecyclerView()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.wtf("MOSTRAR_MASCOTAS", ">>>>>>>>>>>>> SE A LLAMADO A ESTE METODO")
+        for(x in mascotas.listMascota){
+            Log.wtf("MOSTRAR_MASCOTAS", ">>>>>>>>>>>>>> ${x.idMascota}\n" +
+                    "${x.nombre} \n" +
+                    "${x.tipo}\n" +
+                    "${x.raza}\n" +
+                    "${x.peso}")
         }
         initRecyclerView()
     }
