@@ -47,7 +47,7 @@ class MascotasAdapter(private val mascotaList: ArrayList<Mascota>, private val c
             mascotaName.text = mascota.nombre
             mascotaTipo.text = mascota.tipo
             mascotaRaza.text = mascota.raza
-            mascotaImage = mascota.image
+            mascotaImage.setImageDrawable(mascota.image.drawable)
             fragRecyclerMascotas.setOnClickListener{
                 Navigation.findNavController(view).navigate(R.id.acMostrarMascotasVistaMascota)
             }

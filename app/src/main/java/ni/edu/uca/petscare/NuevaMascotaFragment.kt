@@ -64,7 +64,7 @@ class NuevaMascotaFragment : Fragment() {
         fbinding.ivImagen.setOnClickListener {
             val intent = Intent()
             intent.action = Intent.ACTION_GET_CONTENT
-            intent.type = "Image/*"
+            intent.type = "image/*"
             startActivityForResult(intent, 100)
         }
         fbinding.btnGuardarNuevMed.setOnClickListener {
@@ -116,7 +116,11 @@ class NuevaMascotaFragment : Fragment() {
     }
 
     fun onDateSelected(day: Int, month: Int, year: Int) {
-        fbinding.etFechaNacimiento.setText("$year-$month-0$day")
+        if(day >= 1 && day <=9){
+            fbinding.etFechaNacimiento.setText("$year-$month-0$day")
+        }else{
+            fbinding.etFechaNacimiento.setText("$year-$month-$day")
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
