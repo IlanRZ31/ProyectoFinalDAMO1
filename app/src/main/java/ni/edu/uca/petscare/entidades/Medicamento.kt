@@ -4,7 +4,7 @@ import java.sql.Time
 import java.time.LocalDate
 
 class Medicamento(
-    var idMedicamento: Int,
+    val idMedicamento: Int,
     var idMascota: Int,
     var nombreMedicamento: String,
     var intervaloTiempo: Int,

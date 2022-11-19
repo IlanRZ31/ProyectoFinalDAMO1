@@ -6,7 +6,7 @@ import java.time.LocalDate
 import java.util.*
 
 class Mascota(
-    var idMascota: Int,
+    val idMascota: Int,
     var nombre: String,
     var tipo: String,
     var raza: String,

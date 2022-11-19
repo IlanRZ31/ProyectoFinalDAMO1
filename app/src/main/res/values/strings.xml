@@ -26,6 +26,7 @@
     <string name="vacunaRV">Vacuna:</string>
     <string name="fecha_programadaRV">Fecha programada:</string>
     <string name="estadoRV">Estado:</string>
+    <string name="peso">Peso</string>
 
     <string-array name="estado_vacuna">
         <item>Atrasado</item>

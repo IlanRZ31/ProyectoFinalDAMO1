@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:padding="20dp"
-    tools:context=".VistaMascotaFragment"
-    android:background="@color/background">
+    tools:context=".VistaMascotaFragment">
 
     <!-- TODO: añadir  font style, y pues, los otros elementos...-->
 
@@ -42,8 +42,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Husky canadiense"
         android:fontFamily="@font/poppins_semibold"
+        android:text="Husky canadiense"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,9 +55,9 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
         android:text="Nació el 4 de abril del 2020 (2 años)"
         android:textColor="@color/white"
-        android:fontFamily="@font/poppins_semibold"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -88,7 +88,6 @@
         android:id="@+id/btnMenuVacunas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
         android:background="@drawable/et_style"
         android:backgroundTint="@color/backgroundEt"
         android:paddingLeft="10dp"
@@ -101,7 +100,7 @@
         app:layout_constraintHorizontal_bias="0.116"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.218"  />
 
     <TextView
         android:id="@+id/textView3"
@@ -122,7 +121,6 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="Vacunas"
         android:textColor="@color/white"
@@ -132,7 +130,7 @@
         app:layout_constraintHorizontal_bias="0.177"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnMenuVacunas"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.077" />
 
     <ImageButton
         android:id="@+id/btnMenuHigiene"
@@ -149,25 +147,25 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.212" />
+        app:layout_constraintVertical_bias="0.189" />
 
     <ImageButton
         android:id="@+id/btnMenuAlimentacion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/et_style"
+        android:backgroundTint="@color/backgroundEt"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
         android:src="@drawable/comida2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.739"
         app:layout_constraintStart_toEndOf="@+id/btnMenuHigiene"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:layout_constraintVertical_bias="0.189"
-        android:background="@drawable/et_style"
-        android:backgroundTint="@color/backgroundEt"
-        android:paddingLeft="10dp"
-        android:paddingTop="10dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="10dp"/>
+        app:layout_constraintVertical_bias="0.189" />
 
     <TextView
         android:id="@+id/textView5"
