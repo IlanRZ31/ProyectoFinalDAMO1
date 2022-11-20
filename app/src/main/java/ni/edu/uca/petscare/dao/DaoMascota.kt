@@ -184,7 +184,7 @@ class DaoMascota() : Parcelable {
      * Este metodo devuelve un ArrayList de las mascotas ordenadas por especie y nombre, alfabeticamente
      * */
     fun ordenarMascotaEspecie(): ArrayList<Mascota> {
-        val mascotas = ArrayList<Mascota>()
+        val mascotas = listMascota
         try {
             return ArrayList(mascotas.sortedWith(compareBy(Mascota::tipo, Mascota::nombre)))
         } catch (ex: Exception) {
@@ -200,7 +200,7 @@ class DaoMascota() : Parcelable {
      */
     @RequiresApi(Build.VERSION_CODES.O)
     fun ordernarMascotaEdad(): ArrayList<Mascota> {
-        val mascotas = ArrayList<Mascota>()
+        val mascotas = listMascota
         try {
             return ArrayList(
                 mascotas.sortedWith(

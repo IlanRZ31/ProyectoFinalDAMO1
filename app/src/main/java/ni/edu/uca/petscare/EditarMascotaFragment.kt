@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import ni.edu.uca.petscare.dao.DaoMascota
 import ni.edu.uca.petscare.databinding.FragmentEditarMascotaBinding
+import ni.edu.uca.petscare.entidades.Mascota
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -59,6 +60,12 @@ class EditarMascotaFragment : Fragment() {
     }
     @RequiresApi(Build.VERSION_CODES.O)
     private fun iniciar() {
+        var mascota: Mascota? = daoMascota.buscarMascotaID(idMascota)
+        fbinding.etENombre.setText(mascota?.nombre)
+        fbinding.etERaza.setText(mascota?.raza)
+        fbinding.etEPeso.setText(mascota?.peso.toString())
+        fbinding.ivEImagen.setImageDrawable(mascota?.image?.drawable)
+
         fbinding.etEFechaNacimiento.setOnClickListener{showDatePickerDialog()}
         fbinding.ivEImagen.setOnClickListener {
             val intent = Intent()

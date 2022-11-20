@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/iSinFiltros"
+        android:title="Mostrar sin filtros"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/iOrdenRaza"
+         android:title="Mostrar por raza"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/iOrdenEspecie"
+        android:title="Mostrar por especie"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/iOrdenEdad"
+        android:title="Mostrar por edad"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/iBuscarNombre"
+        android:title="Buscar por nombre"
+        app:showAsAction="never"/>
+
+</menu>
