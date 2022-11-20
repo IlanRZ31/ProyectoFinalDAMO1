@@ -1,4 +1,5 @@
 package ni.edu.uca.petscare
+
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -93,8 +94,9 @@ class NuevaMascotaFragment : Fragment() {
                 val image = ivImagen
                 val date = LocalDate.parse(fechaNacimiento, DateTimeFormatter.ISO_LOCAL_DATE)
 
-                if(mascotas.agregarMascota(nombre, tipo, raza, date, peso, image)){
-                    Toast.makeText(activity, "Se a guardado exitosamente", Toast.LENGTH_SHORT).show()
+                if (mascotas.agregarMascota(nombre, tipo, raza, date, peso, image)) {
+                    Toast.makeText(activity, "Se a guardado exitosamente", Toast.LENGTH_SHORT)
+                        .show()
                 }
 
             } catch (ex: Exception) {
@@ -115,9 +117,16 @@ class NuevaMascotaFragment : Fragment() {
     }
 
     fun onDateSelected(day: Int, month: Int, year: Int) {
-        if(day >= 1 && day <=9){
+        if (day >= 1 && day <= 9 && month > 9) {
             fbinding.etFechaNacimiento.setText("$year-$month-0$day")
-        }else{
+        }
+        if (day >= 1 && day <= 9 && month >= 1 && month <= 9) {
+            fbinding.etFechaNacimiento.setText("$year-0$month-0$day")
+        }
+        if (month >= 1 && month <= 9 && day >= 10) {
+            fbinding.etFechaNacimiento.setText("$year-0$month-$day")
+        }
+        if (month > 9 && day > 9) {
             fbinding.etFechaNacimiento.setText("$year-$month-$day")
         }
     }
