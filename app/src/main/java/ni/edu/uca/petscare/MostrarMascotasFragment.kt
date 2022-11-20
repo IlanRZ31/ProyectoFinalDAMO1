@@ -43,7 +43,10 @@ class MostrarMascotasFragment : Fragment() {
         fbinding = FragmentMostrarMascotasBinding.inflate(layoutInflater)
         val navController = findNavController()
         /* Codigo que toma los valores del siguiente fragmento */
-        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<DaoMascota>("DaoMascota")
+        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<DaoMascota>("NuevaMascota")
+            ?.observe(viewLifecycleOwner) {result -> mascotas = result}
+
+        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<DaoMascota>("VistaMascota")
             ?.observe(viewLifecycleOwner) {result -> mascotas = result}
         iniciar()
         return fbinding.root
@@ -52,7 +55,7 @@ class MostrarMascotasFragment : Fragment() {
     private fun iniciar() {
         /* Navegar al fragmento "Nuevas mascotas" */
         fbinding.btnNuevaMascota.setOnClickListener {
-            val action = MostrarMascotasFragmentDirections.acMostrarMacotasNuevaMascota(mascotas) // might fail
+            val action = MostrarMascotasFragmentDirections.acMostrarMacotasNuevaMascota(mascotas) // might fail, so far so good
             Navigation.findNavController(fbinding.root).navigate(action)
         }
         initRecyclerView()
@@ -75,7 +78,7 @@ class MostrarMascotasFragment : Fragment() {
         val recyclerView = fbinding.rvMascotas
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
-        recyclerView.adapter = MascotasAdapter(mascotas.mostrarMascotas(), fbinding.root)
+        recyclerView.adapter = MascotasAdapter( mascotas, mascotas.mostrarMascotas(), fbinding.root)
     }
 
     companion object {

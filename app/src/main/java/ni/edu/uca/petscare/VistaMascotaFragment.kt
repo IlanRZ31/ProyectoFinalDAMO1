@@ -1,12 +1,19 @@
 package ni.edu.uca.petscare
 
+import android.app.AlertDialog
+import android.os.Build
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import ni.edu.uca.petscare.dao.DaoMascota
 import ni.edu.uca.petscare.databinding.FragmentVistaMascotaBinding
 
-// TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -17,10 +24,12 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class VistaMascotaFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var fbinding: FragmentVistaMascotaBinding
+    private val args: VistaMascotaFragmentArgs by navArgs()
+    private lateinit var daoMascota: DaoMascota
+    private var idMascota: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,33 +45,95 @@ class VistaMascotaFragment : Fragment() {
      */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_mascotas, menu)
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        //TODO: funcionalidad eliminar
-        when(item.itemId){
-            R.id.iEditar -> Navigation.findNavController(fbinding.root).navigate(R.id.acVistaMascotaEditarMascota)
+
+        when (item.itemId) {
+            R.id.iEditar -> {
+                val action = VistaMascotaFragmentDirections.acVistaMascotaEditarMascota(
+                    idMascota,
+                    daoMascota
+                )
+                Navigation.findNavController(fbinding.root)
+                    .navigate(action)
+            }
+
+            R.id.iEliminar -> {
+                val confirmarAlert = AlertDialog.Builder(context)
+                    .setTitle("ELIMINAR MASCOTA")
+                    .setMessage("Esta seguro que desea a esta mascota?")
+                    .setIcon(R.drawable.ic_warning)
+                    .setPositiveButton("Si") { _, _ ->
+                        try {
+                            daoMascota.eliminarMascota(idMascota)
+                            /* Toast que confirma que se elimino*/
+                            Toast.makeText(
+                                context,
+                                "Registro eliminado exitosamente",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } catch (ex: Exception) {
+                            ex.printStackTrace()
+                            Toast.makeText(
+                                context,
+                                "ERROR: No se a podido eliminar la mascota",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                    .setNegativeButton("No") { _, _ ->
+                        Toast.makeText(
+                            context,
+                            "Abortado",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }.create()
+                confirmarAlert.show()
+            }
         }
         return true
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         fbinding = FragmentVistaMascotaBinding.inflate(layoutInflater)
+        daoMascota = args.daoMascotas
+        idMascota = args.idMascota
+
+        /*Devolver data a MostrarMascotasFragment*/
+        val navController = findNavController()
+        navController.previousBackStackEntry?.savedStateHandle?.set("VistaMascota", daoMascota)
+
+        /* Obtener data de EditarMascotaFragment*/
+        val navController2 = findNavController()
+        navController2.currentBackStackEntry?.savedStateHandle?.getLiveData<DaoMascota>("EditarMascota")
+            ?.observe(viewLifecycleOwner){result -> daoMascota = result}
+
         iniciar()
         return fbinding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun iniciar() {
+        val mascota = daoMascota.buscarMascotaID(idMascota)
+        fbinding.tvNombreMascotaDetallada.text = mascota?.nombre
+        fbinding.textView.text = mascota?.raza
+        fbinding.textView2.text = daoMascota.obtenerFechaNacimiento(mascota!!)
+        fbinding.tvPesoVistaMascota.text = "${mascota.peso.toString()} kg"
+        fbinding.tvTipoVistaMascota.text = mascota.tipo
+        fbinding.imageView.setImageDrawable(mascota.image.drawable)
+
         fbinding.btnMenuVacunas.setOnClickListener {
             Navigation.findNavController(fbinding.root).navigate(R.id.acVistaMascotaMostrarVacunas)
         }
         fbinding.btnMenuTratamiento.setOnClickListener {
-            Navigation.findNavController(fbinding.root).navigate(R.id.acVistaMascotaMostrarMedicamentos)
+            Navigation.findNavController(fbinding.root)
+                .navigate(R.id.acVistaMascotaMostrarMedicamentos)
         }
     }
 

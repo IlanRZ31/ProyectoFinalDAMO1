@@ -29,7 +29,6 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class NuevaMascotaFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var fbinding: FragmentNuevaMascotaBinding
@@ -53,7 +52,7 @@ class NuevaMascotaFragment : Fragment() {
         fbinding = FragmentNuevaMascotaBinding.inflate(layoutInflater)
         val navController = findNavController()
         mascotas = args.daoMascotas
-        navController.previousBackStackEntry?.savedStateHandle?.set("DaoMascota", mascotas)
+        navController.previousBackStackEntry?.savedStateHandle?.set("NuevaMascota", mascotas)
         iniciar()
         return fbinding.root
     }

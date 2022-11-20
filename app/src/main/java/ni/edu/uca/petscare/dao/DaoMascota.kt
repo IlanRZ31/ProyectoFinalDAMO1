@@ -11,6 +11,8 @@ import com.google.android.material.imageview.ShapeableImageView
 import ni.edu.uca.petscare.entidades.Mascota
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class DaoMascota() : Parcelable {
@@ -145,6 +147,27 @@ class DaoMascota() : Parcelable {
     }
 
     /**
+     * Este metodo busca una mascota del array list por medio de id
+     * */
+    fun buscarMascotaID(idMascota: Int): Mascota? {
+        var mascota: Mascota
+        try {
+            var i = 0
+            while (i < listMascota.size) {
+                if (listMascota[i].idMascota == idMascota) {
+                    mascota = listMascota[i]
+                    return mascota
+                }
+                i++
+            }
+
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
+        return null
+    }
+
+    /**
      * Este metodo devuelve un ArrayList de las mascotas ordenadas por raza y nombre, alfabeticamente
      * */
     fun ordenarMascotaRaza(): ArrayList<Mascota> {
@@ -210,6 +233,38 @@ class DaoMascota() : Parcelable {
 
     fun setListMascotas(mascotas: ArrayList<Mascota>) {
         listMascota = mascotas
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun obtenerFechaNacimiento(mascota: Mascota): String? {
+        var fecha: String
+        try {
+            //Nació el 4 de abril del 2020 (2 años)
+            val mes: String = when(mascota.fechaNacimiento.month.value){
+                1 -> "Enero"
+                2 -> "Febrero"
+                3 -> "Marzo"
+                4 -> "Abril"
+                5 -> "Mayo"
+                6 -> "Junio"
+                7 -> "Julio"
+                8 -> "Agosto"
+                9 -> "Septiembre"
+                10 -> "Octubre"
+                11 -> "Noviembre"
+                12 -> "Diciembre"
+                else -> {"wtf: what a terrible failure!"}
+            }
+            val nacimientoYear = mascota.fechaNacimiento.year
+            val yearActual = Calendar.getInstance().get(Calendar.YEAR)
+            fecha =
+                "Nació el ${mascota.fechaNacimiento.dayOfMonth} de ${mes}" +
+                        " del ${mascota.fechaNacimiento.year} (${(yearActual - nacimientoYear)} años)"
+            return fecha
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
+        return null
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
