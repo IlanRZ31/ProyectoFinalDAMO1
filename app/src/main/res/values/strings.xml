@@ -30,7 +30,6 @@
 
     <string-array name="estado_vacuna">
         <item>Atrasado</item>
-        <item>Programado</item>
         <item>Aplicado</item>
     </string-array>
 

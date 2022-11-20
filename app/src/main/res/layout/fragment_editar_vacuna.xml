@@ -68,8 +68,8 @@
 
         <Spinner
             android:id="@+id/cbEstadoEditar"
-            android:layout_width="214dp"
-            android:layout_height="33dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:background="@drawable/et_style"
             android:backgroundTint="@color/backgroundEt"

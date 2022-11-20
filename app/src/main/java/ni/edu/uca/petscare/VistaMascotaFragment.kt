@@ -119,17 +119,29 @@ class VistaMascotaFragment : Fragment() {
         navController.previousBackStackEntry?.savedStateHandle?.set("VistaMascota", daoMascota)
 
         /* Devolver daoMedicamento a MostrarMascotasFragment */
-        navController.previousBackStackEntry?.savedStateHandle?.set("VistaMascota_Medicamento", daoMedicamento)
+        navController.previousBackStackEntry?.savedStateHandle?.set(
+            "VistaMascota_Medicamento",
+            daoMedicamento
+        )
 
         /* Devolver daoVacuna a MostrarMascotasFragment */
-        navController.previousBackStackEntry?.savedStateHandle?.set("VistaMascota_Vacuna", daoVacuna)
-
+        navController.previousBackStackEntry?.savedStateHandle?.set(
+            "VistaMascota_Vacuna",
+            daoVacuna
+        )
         /* Obtener data de EditarMascotaFragment*/
         val navController2 = findNavController()
         navController2.currentBackStackEntry?.savedStateHandle?.getLiveData<DaoMascota>("EditarMascota")
-            ?.observe(viewLifecycleOwner){result -> daoMascota = result}
+            ?.observe(viewLifecycleOwner) { result -> daoMascota = result }
 
-        /* Obtener */
+        /* Obtener daoVacuna de MostrarVacunaFragment */
+        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<DaoVacuna>("MostrarVacuna")
+            ?.observe(viewLifecycleOwner) { result -> daoVacuna = result }
+
+        /* Obtener daoMedicamento de MostrarMedicamentoFragment */
+        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<DaoMedicamento>("MostrarMedicamento")
+            ?.observe(viewLifecycleOwner) { result -> daoMedicamento = result }
+
         iniciar()
         return fbinding.root
     }
@@ -145,12 +157,13 @@ class VistaMascotaFragment : Fragment() {
         fbinding.imageView.setImageDrawable(mascota.image.drawable)
 
         fbinding.btnMenuVacunas.setOnClickListener {
-
-            Navigation.findNavController(fbinding.root).navigate(R.id.acVistaMascotaMostrarVacunas)
+            val action =
+                VistaMascotaFragmentDirections.acVistaMascotaMostrarVacunas(daoVacuna, idMascota)
+            Navigation.findNavController(fbinding.root).navigate(action)
         }
         fbinding.btnMenuTratamiento.setOnClickListener {
-            Navigation.findNavController(fbinding.root)
-                .navigate(R.id.acVistaMascotaMostrarMedicamentos)
+            val action = VistaMascotaFragmentDirections.acVistaMascotaMostrarMedicamentos()
+            Navigation.findNavController(fbinding.root).navigate(action)
         }
     }
 

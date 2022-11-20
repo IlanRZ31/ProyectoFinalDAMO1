@@ -1,5 +1,6 @@
 package ni.edu.uca.petscare
 
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,11 +9,17 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import ni.edu.uca.petscare.dao.DaoVacuna
 import ni.edu.uca.petscare.databinding.FragmentEditarMedicamentoBinding
 import ni.edu.uca.petscare.databinding.FragmentEditarVacunaBinding
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 
-// TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -24,43 +31,79 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class EditarVacunaFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var fbinding: FragmentEditarVacunaBinding
+    private lateinit var daoVacuna: DaoVacuna
+    private val args: EditarVacunaFragmentArgs by navArgs()
+    private var idVacuna = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
-
         }
-
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
 
     ): View? {
         // Inflate the layout for this fragment
-        //Atrasado Programado Aplicado
-
+        //Atrasado Aplicado
         fbinding = FragmentEditarVacunaBinding.inflate(layoutInflater)
+        daoVacuna = args.daoVacuna
+        idVacuna = args.idVacuna
+        var navController = findNavController()
+        /* Devolver DaoVacunas a MostrarVacunasFragment */
+        navController.previousBackStackEntry?.savedStateHandle?.set("EditarVacuna", daoVacuna)
         iniciar()
         return inflater.inflate(R.layout.fragment_editar_vacuna, container, false)
 
     }
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun iniciar() {
         fbinding.etFechaProgEditar.setOnClickListener{showDatePickerDialog()}
-
+        fbinding.btnGuardarEditVac.setOnClickListener {
+            save()
+        }
+        fbinding.btnEliminarEditVacuna.setOnClickListener {
+            try {
+                if(daoVacuna.eliminarVacuna(idVacuna)){
+                    Toast.makeText(activity, "Se a eliminado la vacuna", Toast.LENGTH_SHORT).show()
+                }
+            }catch (ex:Exception){
+                ex.printStackTrace()
+            }
+        }
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun save() {
+        try {
+            val name = fbinding.etVacunaEditar.text.toString()
+            val fechaProgramada = fbinding.etFechaProgEditar.text.toString()
+            val clinica = fbinding.etClinicaEditar.text.toString()
+            val estado = fbinding.cbEstadoEditar.selectedItem.toString()
+            val date = LocalDate.parse(fechaProgramada, DateTimeFormatter.ISO_LOCAL_DATE)
+            //año programado tiene que ser mayor al actual
+            if(daoVacuna.editarVacuna(idVacuna, name, date,clinica,estado)){
+                Toast.makeText(activity, "Se han guardado los cambios", Toast.LENGTH_SHORT).show()
+            }
+        } catch (ex: Exception){
+            ex.printStackTrace()
+            Toast.makeText(activity, "Los campos deben de ser rellenados", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun showDatePickerDialog() {
         val datePicker = DatePickerFragment {day, month, year -> onDateSelected(day, month, year)}
         datePicker.show(parentFragmentManager, "datePicker" )
     }
+
     fun onDateSelected(day: Int, month: Int, year: Int){
         if (day >= 1 && day <= 9 && month > 9) {
             fbinding.etFechaProgEditar.setText("$year-$month-0$day")

@@ -1,12 +1,20 @@
 package ni.edu.uca.petscare
 
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import ni.edu.uca.petscare.dao.DaoVacuna
 import ni.edu.uca.petscare.databinding.FragmentNuevaVacunaBinding
 import ni.edu.uca.petscare.databinding.FragmentNuevoMedicamentoBinding
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,6 +31,9 @@ class NuevaVacunaFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var fbinding: FragmentNuevaVacunaBinding
+    private val args: NuevaVacunaFragmentArgs by navArgs()
+    private lateinit var daoVacuna: DaoVacuna
+    private var idMascota = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,25 +43,66 @@ class NuevaVacunaFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         fbinding = FragmentNuevaVacunaBinding.inflate(layoutInflater)
+        daoVacuna = args.daoVacuna
+        idMascota = args.idMascota
+        var navController = findNavController()
+
+        /* Devolver daoVacuna a MostrarVacunaFragment*/
+        navController.previousBackStackEntry?.savedStateHandle?.set("CrearVacuna", daoVacuna)
+
         iniciar()
         return fbinding.root
     }
-    private fun iniciar() {
-        fbinding.etFechaProgramada.setOnClickListener{showDatePickerDialog()}
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun iniciar() {
+        fbinding.etFechaProgramada.setOnClickListener { showDatePickerDialog() }
+        fbinding.btnGuardar.setOnClickListener {
+            save()
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun save() {
+        try {
+            val name = fbinding.etVacuna.text.toString()
+            val fechaProgramada = fbinding.etFechaProgramada.text.toString()
+            val clinica = fbinding.etClinica.text.toString()
+            val date = LocalDate.parse(fechaProgramada, DateTimeFormatter.ISO_LOCAL_DATE)
+            if(daoVacuna.agregarVacuna(idMascota, name, date, clinica, "Programado")){
+                Toast.makeText(activity, "Se a guardado exitosamente", Toast.LENGTH_SHORT).show()
+            }
+
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            Toast.makeText(activity, "Todos los campos deben de ser rellenados", Toast.LENGTH_SHORT)
+                .show()
+            return
+        }
+        limpiar()
+
+    }
+    private fun limpiar() {
+        with(fbinding){
+            etVacuna.setText("")
+            etClinica.setText("")
+            etFechaProgramada.setText("")
+        }
     }
 
     private fun showDatePickerDialog() {
-        val datePicker = DatePickerFragment {day, month, year -> onDateSelected(day, month, year)}
-        datePicker.show(parentFragmentManager, "datePicker" )
+        val datePicker = DatePickerFragment { day, month, year -> onDateSelected(day, month, year) }
+        datePicker.show(parentFragmentManager, "datePicker")
     }
-    fun onDateSelected(day: Int, month: Int, year: Int){
+
+    fun onDateSelected(day: Int, month: Int, year: Int) {
         if (day >= 1 && day <= 9 && month > 9) {
             fbinding.etFechaProgramada.setText("$year-$month-0$day")
         }
