@@ -62,7 +62,18 @@ class EditarVacunaFragment : Fragment() {
         datePicker.show(parentFragmentManager, "datePicker" )
     }
     fun onDateSelected(day: Int, month: Int, year: Int){
-        fbinding.etFechaProgEditar.setText("$year-$month-0$day")
+        if (day >= 1 && day <= 9 && month > 9) {
+            fbinding.etFechaProgEditar.setText("$year-$month-0$day")
+        }
+        if (day >= 1 && day <= 9 && month >= 1 && month <= 9) {
+            fbinding.etFechaProgEditar.setText("$year-0$month-0$day")
+        }
+        if (month >= 1 && month <= 9 && day >= 10) {
+            fbinding.etFechaProgEditar.setText("$year-0$month-$day")
+        }
+        if (month > 9 && day > 9) {
+            fbinding.etFechaProgEditar.setText("$year-$month-$day")
+        }
     }
 
     companion object {

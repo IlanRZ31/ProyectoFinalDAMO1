@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import ni.edu.uca.petscare.dao.DaoMascota
+import ni.edu.uca.petscare.dao.DaoVacuna
 import ni.edu.uca.petscare.databinding.FragmentVistaMascotaBinding
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,6 +30,8 @@ class VistaMascotaFragment : Fragment() {
     private lateinit var fbinding: FragmentVistaMascotaBinding
     private val args: VistaMascotaFragmentArgs by navArgs()
     private lateinit var daoMascota: DaoMascota
+    private lateinit var daoVacuna: DaoVacuna
+    private var idVacuna: Int = 0
     private var idMascota: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -104,6 +107,8 @@ class VistaMascotaFragment : Fragment() {
         fbinding = FragmentVistaMascotaBinding.inflate(layoutInflater)
         daoMascota = args.daoMascotas
         idMascota = args.idMascota
+
+
 
         /*Devolver data a MostrarMascotasFragment*/
         val navController = findNavController()

@@ -16,7 +16,7 @@ import kotlin.collections.ArrayList
 
 
 class DaoMascota() : Parcelable {
-    private var _mascota = MutableLiveData<Mascota>()
+
     var listMascota = ArrayList<Mascota>()
 
     constructor(parcel: Parcel) : this() {
