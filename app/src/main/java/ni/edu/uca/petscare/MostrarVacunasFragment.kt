@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import ni.edu.uca.petscare.dao.DaoVacuna
 import ni.edu.uca.petscare.databinding.FragmentMostrarVacunasBinding
 import ni.edu.uca.petscare.rv_adapters.VacunasAdapter
 
@@ -25,7 +26,7 @@ class MostrarVacunasFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var fbinding: FragmentMostrarVacunasBinding
-    private lateinit var vacunas: MutableList<String>
+    private lateinit var daoVacunas: DaoVacuna
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,12 +43,12 @@ class MostrarVacunasFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         fbinding = FragmentMostrarVacunasBinding.inflate(layoutInflater)
+        daoVacunas = DaoVacuna()
         iniciar()
         return fbinding.root
     }
 
     private fun iniciar() {
-        vacunas = arrayListOf<String>()
         fbinding.btnNuevaVacuna.setOnClickListener {
             Navigation.findNavController(fbinding.root).navigate(R.id.acMostrarVacunasNuevaVacuna)
         }
@@ -56,16 +57,10 @@ class MostrarVacunasFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        vacunas.add("la uno")
-        vacunas.add("la dos")
-        vacunas.add("la tres")
-        vacunas.add("la cuatro")
-        vacunas.add("la cinco")
-        vacunas.add("la seis")
 
         fbinding.rvVacunas.layoutManager = LinearLayoutManager(context)
         fbinding.rvVacunas.setHasFixedSize(true)
-        fbinding.rvVacunas.adapter = VacunasAdapter(vacunas, fbinding.root)
+        fbinding.rvVacunas.adapter = VacunasAdapter(daoVacunas, daoVacunas.listVacuna, fbinding.root)
 
     }
 

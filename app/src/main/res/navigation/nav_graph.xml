@@ -53,6 +53,12 @@
             app:argType="integer" />
         <argument android:name="daoMascotas"
             app:argType="ni.edu.uca.petscare.dao.DaoMascota" />
+        <argument
+            android:name="daoVacuna"
+            app:argType="ni.edu.uca.petscare.dao.DaoVacuna" />
+        <argument
+            android:name="daoMedicamento"
+            app:argType="ni.edu.uca.petscare.dao.DaoMedicamento" />
     </fragment>
     <fragment
         android:id="@+id/mostrarVacunasFragment"
@@ -65,17 +71,37 @@
         <action
             android:id="@+id/acMostrarVacunaEditarVacuna"
             app:destination="@id/editarVacunaFragment" />
+        <argument
+            android:name="daoVacuna"
+            app:argType="ni.edu.uca.petscare.dao.DaoVacuna" />
+        <argument
+            android:name="idMascota"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/nuevaVacunaFragment"
         android:name="ni.edu.uca.petscare.NuevaVacunaFragment"
         android:label="fragment_crear_vacuna"
-        tools:layout="@layout/fragment_nueva_vacuna" />
+        tools:layout="@layout/fragment_nueva_vacuna" >
+        <argument
+            android:name="daoVacuna"
+            app:argType="ni.edu.uca.petscare.dao.DaoVacuna" />
+        <argument
+            android:name="idMascota"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/editarVacunaFragment"
         android:name="ni.edu.uca.petscare.EditarVacunaFragment"
         android:label="fragment_editar_vacuna"
-        tools:layout="@layout/fragment_editar_vacuna" />
+        tools:layout="@layout/fragment_editar_vacuna" >
+        <argument
+            android:name="idVacuna"
+            app:argType="integer" />
+        <argument
+            android:name="daoVacuna"
+            app:argType="ni.edu.uca.petscare.dao.DaoVacuna" />
+    </fragment>
     <fragment
         android:id="@+id/mostrarMedicamentosFragment"
         android:name="ni.edu.uca.petscare.MostrarMedicamentosFragment"
@@ -92,7 +118,14 @@
         android:id="@+id/editarMedicamentoFragment"
         android:name="ni.edu.uca.petscare.EditarMedicamentoFragment"
         android:label="fragment_editar_medicamento"
-        tools:layout="@layout/fragment_editar_medicamento" />
+        tools:layout="@layout/fragment_editar_medicamento" >
+        <argument
+            android:name="idMedicamento"
+            app:argType="integer" />
+        <argument
+            android:name="daoMedic"
+            app:argType="ni.edu.uca.petscare.dao.DaoMedicamento" />
+    </fragment>
     <fragment
         android:id="@+id/nuevoMedicamentoFragment"
         android:name="ni.edu.uca.petscare.NuevoMedicamentoFragment"

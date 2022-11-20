@@ -14,10 +14,12 @@ import ni.edu.uca.petscare.MostrarMascotasFragmentDirections
 import ni.edu.uca.petscare.MostrarMascotasFragmentDirections.Companion.acMostrarMascotasVistaMascota
 import ni.edu.uca.petscare.R
 import ni.edu.uca.petscare.dao.DaoMascota
+import ni.edu.uca.petscare.dao.DaoMedicamento
+import ni.edu.uca.petscare.dao.DaoVacuna
 import ni.edu.uca.petscare.entidades.Mascota
 import ni.edu.uca.petscare.databinding.RecyclerMascotasBinding
 
-class MascotasAdapter(private var daoMascota: DaoMascota, private val mascotaList: ArrayList<Mascota>, private val currentView: View) :
+class MascotasAdapter(private var daoMedicamento: DaoMedicamento, private var daoVacuna: DaoVacuna, var daoMascota: DaoMascota, private val mascotaList: ArrayList<Mascota>, private val currentView: View) :
     RecyclerView.Adapter<MascotasAdapter.MascotasViewHolder>() {
     private lateinit var currentContext: Context
 
@@ -52,7 +54,7 @@ class MascotasAdapter(private var daoMascota: DaoMascota, private val mascotaLis
             mascotaRaza.text = mascota.raza
             mascotaImage.setImageDrawable(mascota.image.drawable)
             fragRecyclerMascotas.setOnClickListener{
-                val action = MostrarMascotasFragmentDirections.acMostrarMascotasVistaMascota(mascota.idMascota, daoMascota)
+                val action = MostrarMascotasFragmentDirections.acMostrarMascotasVistaMascota(mascota.idMascota, daoMascota, daoVacuna, daoMedicamento)
                 Navigation.findNavController(view).navigate(action)
             }
         }

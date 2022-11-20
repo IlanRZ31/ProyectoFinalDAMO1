@@ -14,6 +14,8 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import ni.edu.uca.petscare.dao.DaoMascota
+import ni.edu.uca.petscare.dao.DaoMedicamento
+import ni.edu.uca.petscare.dao.DaoVacuna
 import ni.edu.uca.petscare.databinding.FragmentMostrarMascotasBinding
 import ni.edu.uca.petscare.rv_adapters.MascotasAdapter
 
@@ -30,6 +32,8 @@ class MostrarMascotasFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private var mascotas = DaoMascota()
+    private var vacunas = DaoVacuna()
+    private var medicamentos = DaoMedicamento()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +63,7 @@ class MostrarMascotasFragment : Fragment() {
                 recyclerView.layoutManager = LinearLayoutManager(context)
                 recyclerView.setHasFixedSize(true)
                 recyclerView.adapter =
-                    MascotasAdapter(mascotas, mascotas.ordenarMascotaRaza(), fbinding.root)
+                    MascotasAdapter(medicamentos,vacunas, mascotas, mascotas.ordenarMascotaRaza(), fbinding.root)
             }
             R.id.iOrdenEspecie -> {
                 for (x in mascotas.ordenarMascotaEspecie()) {
@@ -69,14 +73,14 @@ class MostrarMascotasFragment : Fragment() {
                 recyclerView.layoutManager = LinearLayoutManager(context)
                 recyclerView.setHasFixedSize(true)
                 recyclerView.adapter =
-                    MascotasAdapter(mascotas, mascotas.ordenarMascotaEspecie(), fbinding.root)
+                    MascotasAdapter(medicamentos,vacunas, mascotas, mascotas.ordenarMascotaEspecie(), fbinding.root)
             }
             R.id.iOrdenEdad -> {
                 val recyclerView = fbinding.rvMascotas
                 recyclerView.layoutManager = LinearLayoutManager(context)
                 recyclerView.setHasFixedSize(true)
                 recyclerView.adapter =
-                    MascotasAdapter(mascotas, mascotas.ordernarMascotaEdad(), fbinding.root)
+                    MascotasAdapter(medicamentos,vacunas, mascotas, mascotas.ordernarMascotaEdad(), fbinding.root)
             }
             R.id.iBuscarNombre -> {
                 val mascota: EditText = EditText(context)
@@ -94,6 +98,8 @@ class MostrarMascotasFragment : Fragment() {
                             recyclerView.setHasFixedSize(true)
                             recyclerView.adapter =
                                 MascotasAdapter(
+                                    medicamentos,
+                                    vacunas,
                                     mascotas,
                                     mascotas.buscarMascotaNombre(nombre),
                                     fbinding.root
@@ -121,11 +127,20 @@ class MostrarMascotasFragment : Fragment() {
         fbinding = FragmentMostrarMascotasBinding.inflate(layoutInflater)
         val navController = findNavController()
         /* Codigo que toma los valores del siguiente fragmento */
+        /* MASCOTA: */
         navController.currentBackStackEntry?.savedStateHandle?.getLiveData<DaoMascota>("NuevaMascota")
             ?.observe(viewLifecycleOwner) { result -> mascotas = result }
 
         navController.currentBackStackEntry?.savedStateHandle?.getLiveData<DaoMascota>("VistaMascota")
             ?.observe(viewLifecycleOwner) { result -> mascotas = result }
+
+        /* VACUNA: */
+        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<DaoVacuna>("VistaMascota_Vacuna")
+            ?.observe(viewLifecycleOwner){ result -> vacunas = result}
+
+        /* MEDICAMENTO */
+        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<DaoMedicamento>("VistaMascota_Medicamento")
+            ?.observe(viewLifecycleOwner) { result -> medicamentos = result}
         iniciar()
         return fbinding.root
     }
@@ -149,7 +164,9 @@ class MostrarMascotasFragment : Fragment() {
         val recyclerView = fbinding.rvMascotas
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
-        recyclerView.adapter = MascotasAdapter(mascotas, mascotas.mostrarMascotas(), fbinding.root)
+
+        recyclerView.adapter = MascotasAdapter(medicamentos,vacunas, mascotas, mascotas.mostrarMascotas(), fbinding.root)
+
     }
 
     companion object {

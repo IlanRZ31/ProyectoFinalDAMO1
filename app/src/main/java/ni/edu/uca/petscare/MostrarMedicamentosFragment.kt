@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import ni.edu.uca.petscare.dao.DaoMedicamento
 import ni.edu.uca.petscare.databinding.FragmentMostrarMascotasBinding
 import ni.edu.uca.petscare.databinding.FragmentMostrarMedicamentosBinding
 import ni.edu.uca.petscare.rv_adapters.MedicamentoAdapter
 
-// TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -22,11 +22,10 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class MostrarMedicamentosFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var fbinding: FragmentMostrarMedicamentosBinding
-    private lateinit var listaMedicina: MutableList<String> //stakeholder TODO: eliminar
+    private lateinit var daoMedicamento: DaoMedicamento
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +41,7 @@ class MostrarMedicamentosFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         fbinding = FragmentMostrarMedicamentosBinding.inflate(layoutInflater)
+        daoMedicamento = DaoMedicamento()
         iniciar()
         return fbinding.root
     }
@@ -54,16 +54,10 @@ class MostrarMedicamentosFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        listaMedicina = arrayListOf()
-        listaMedicina.add("A")
-        listaMedicina.add("B")
-        listaMedicina.add("C")
-        listaMedicina.add("D")
-        listaMedicina.add("E")
 
         fbinding.rvMedicamentos.layoutManager = LinearLayoutManager(context)
         fbinding.rvMedicamentos.setHasFixedSize(true)
-        fbinding.rvMedicamentos.adapter = MedicamentoAdapter(listaMedicina, fbinding.root)
+        fbinding.rvMedicamentos.adapter = MedicamentoAdapter(daoMedicamento, daoMedicamento.listMedicamento, fbinding.root)
     }
 
     companion object {
@@ -75,7 +69,6 @@ class MostrarMedicamentosFragment : Fragment() {
          * @param param2 Parameter 2.
          * @return A new instance of fragment MostrarMedicamentosFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             MostrarMedicamentosFragment().apply {

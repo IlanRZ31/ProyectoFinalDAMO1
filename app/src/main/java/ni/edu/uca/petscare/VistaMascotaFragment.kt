@@ -12,6 +12,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import ni.edu.uca.petscare.dao.DaoMascota
+import ni.edu.uca.petscare.dao.DaoMedicamento
+import ni.edu.uca.petscare.dao.DaoVacuna
 import ni.edu.uca.petscare.databinding.FragmentVistaMascotaBinding
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,8 +30,12 @@ class VistaMascotaFragment : Fragment() {
     private var param2: String? = null
     private lateinit var fbinding: FragmentVistaMascotaBinding
     private val args: VistaMascotaFragmentArgs by navArgs()
+    private lateinit var daoVacuna: DaoVacuna
     private lateinit var daoMascota: DaoMascota
+    private lateinit var daoMedicamento: DaoMedicamento
+    private var idVacuna: Int = 0
     private var idMascota: Int = 0
+    private var idMedicamento: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,15 +111,25 @@ class VistaMascotaFragment : Fragment() {
         daoMascota = args.daoMascotas
         idMascota = args.idMascota
 
+        daoVacuna = args.daoVacuna
+        daoMedicamento = args.daoMedicamento
+
         /*Devolver data a MostrarMascotasFragment*/
         val navController = findNavController()
         navController.previousBackStackEntry?.savedStateHandle?.set("VistaMascota", daoMascota)
+
+        /* Devolver daoMedicamento a MostrarMascotasFragment */
+        navController.previousBackStackEntry?.savedStateHandle?.set("VistaMascota_Medicamento", daoMedicamento)
+
+        /* Devolver daoVacuna a MostrarMascotasFragment */
+        navController.previousBackStackEntry?.savedStateHandle?.set("VistaMascota_Vacuna", daoVacuna)
 
         /* Obtener data de EditarMascotaFragment*/
         val navController2 = findNavController()
         navController2.currentBackStackEntry?.savedStateHandle?.getLiveData<DaoMascota>("EditarMascota")
             ?.observe(viewLifecycleOwner){result -> daoMascota = result}
 
+        /* Obtener */
         iniciar()
         return fbinding.root
     }
@@ -129,6 +145,7 @@ class VistaMascotaFragment : Fragment() {
         fbinding.imageView.setImageDrawable(mascota.image.drawable)
 
         fbinding.btnMenuVacunas.setOnClickListener {
+
             Navigation.findNavController(fbinding.root).navigate(R.id.acVistaMascotaMostrarVacunas)
         }
         fbinding.btnMenuTratamiento.setOnClickListener {
