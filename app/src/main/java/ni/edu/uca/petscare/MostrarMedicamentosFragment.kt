@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import ni.edu.uca.petscare.dao.DaoMedicamento
 import ni.edu.uca.petscare.databinding.FragmentMostrarMascotasBinding
@@ -25,7 +27,9 @@ class MostrarMedicamentosFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var fbinding: FragmentMostrarMedicamentosBinding
+    private val args: MostrarMedicamentosFragmentArgs by navArgs()
     private lateinit var daoMedicamento: DaoMedicamento
+    private var idMascota = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,14 +45,29 @@ class MostrarMedicamentosFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         fbinding = FragmentMostrarMedicamentosBinding.inflate(layoutInflater)
-        daoMedicamento = DaoMedicamento()
+        daoMedicamento = args.daoMedicamento
+        idMascota = args.idMascota
+
+        var navController = findNavController()
+        /* Devolver daoMedicamentos a VistaMascotaFragment */
+        navController.previousBackStackEntry?.savedStateHandle?.set("MostrarMedicamento", daoMedicamento)
+
+        /* Obtener daoMedicamentos de NuevoMedicamentoFragment*/
+        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<DaoMedicamento>("NuevoMedicamento")
+            ?.observe(viewLifecycleOwner){result -> daoMedicamento = result}
+
+        /* Obtener daoMedicamentos de EditarMedicamentoFragment */
+        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<DaoMedicamento>("EditarMedicamento")
+            ?.observe(viewLifecycleOwner){result -> daoMedicamento = result}
+
         iniciar()
         return fbinding.root
     }
 
     private fun iniciar() {
         fbinding.btnNuevoMedicamento.setOnClickListener {
-            Navigation.findNavController(fbinding.root).navigate(R.id.acMostrarMedicamentoNuevoMedicamento)
+            val action = MostrarMedicamentosFragmentDirections.acMostrarMedicamentoNuevoMedicamento(idMascota, daoMedicamento)
+            Navigation.findNavController(fbinding.root).navigate(action)
         }
         initRecyclerView()
     }
@@ -57,7 +76,12 @@ class MostrarMedicamentosFragment : Fragment() {
 
         fbinding.rvMedicamentos.layoutManager = LinearLayoutManager(context)
         fbinding.rvMedicamentos.setHasFixedSize(true)
-        fbinding.rvMedicamentos.adapter = MedicamentoAdapter(daoMedicamento, daoMedicamento.listMedicamento, fbinding.root)
+        fbinding.rvMedicamentos.adapter = MedicamentoAdapter(daoMedicamento, daoMedicamento.mostrarMedic(idMascota), fbinding.root)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        initRecyclerView()
     }
 
     companion object {

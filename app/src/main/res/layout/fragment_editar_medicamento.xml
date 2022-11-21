@@ -65,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Dosis diarias"
+            android:text="Intervalo de tiempo"
             android:textColor="@color/white"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -74,12 +74,12 @@
             app:layout_constraintTop_toBottomOf="@+id/etEditMedicamento" />
 
         <EditText
-            android:id="@+id/etDosisDEditarMed"
+            android:id="@+id/etIntervaloEditMed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="number"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="20sp"
@@ -187,13 +187,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Intérvalo de tiempo"
+            android:text="Hora de la primera dosis"
             android:textColor="@color/white"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.158"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etDosisDEditarMed" />
+            app:layout_constraintTop_toBottomOf="@+id/etIntervaloEditMed" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -60,6 +60,14 @@ class VacunasAdapter(
 
             estadoVacuna.text = "Estado: ${vacuna.estado}"
 
+            if(vacuna.estado.equals("Atrasado")){
+                fragRecyclerVacuna.setBackgroundResource(R.drawable.rv_bg_vacuna_retradasa)
+            }else if(vacuna.estado.equals("Aplicado")){
+                fragRecyclerVacuna.setBackgroundResource(R.drawable.rv_bg_vacuna_aplicada)
+            }else if(vacuna.estado.equals("Programado")){
+                fragRecyclerVacuna.setBackgroundResource(R.drawable.rv_bg_vacuna_programada)
+            }
+
             fragRecyclerVacuna.setOnClickListener {
                 val action = MostrarVacunasFragmentDirections.acMostrarVacunaEditarVacuna(
                     vacuna.idVacuna,

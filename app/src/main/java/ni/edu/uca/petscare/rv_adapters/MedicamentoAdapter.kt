@@ -45,7 +45,7 @@ class MedicamentoAdapter(var daoMedic: DaoMedicamento, val medicList: ArrayList<
 
         fun load(medic: Medicamento, view: View, daoMedic: DaoMedicamento) {
             tvMeddicina.text = medic.nombreMedicamento
-            tvHora.text = medic.horaInicial.toString()
+            tvHora.text = "Hora: ${medic.horaInicial.hours.toString()}:${medic.horaInicial.minutes.toString()}"
             fragMedicamento.setOnClickListener {
                 val action = MostrarMedicamentosFragmentDirections.acMostrarMedicamentosEditarMedicamentos(medic.idMedicamento, daoMedic)
                 Navigation.findNavController(view).navigate(action)

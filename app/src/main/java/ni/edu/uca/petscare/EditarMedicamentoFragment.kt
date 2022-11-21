@@ -1,14 +1,21 @@
 package ni.edu.uca.petscare
 
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import ni.edu.uca.petscare.dao.DaoMedicamento
 import ni.edu.uca.petscare.databinding.FragmentEditarMascotaBinding
 import ni.edu.uca.petscare.databinding.FragmentEditarMedicamentoBinding
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
-// TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -19,10 +26,12 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class EditarMedicamentoFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var fbinding: FragmentEditarMedicamentoBinding
+    private val args: EditarMedicamentoFragmentArgs by navArgs()
+    private var idMedicamento = 0
+    private lateinit var daoMedicamento: DaoMedicamento
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,19 +41,61 @@ class EditarMedicamentoFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         fbinding = FragmentEditarMedicamentoBinding.inflate(layoutInflater)
+        daoMedicamento = args.daoMedic
+        idMedicamento = args.idMedicamento
+
+        val navController = findNavController()
+        /* Devolver daoMedicamento a MostrarMedicamentoFragment */
+        navController.previousBackStackEntry?.savedStateHandle?.set("EditarMedicamento", daoMedicamento)
+
         iniciar()
         return fbinding.root
     }
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun iniciar() {
+        val medicamento = daoMedicamento.buscarMedicamento(idMedicamento)
+        fbinding.etEditMedicamento.setText(medicamento?.nombreMedicamento)
+        fbinding.etIntervaloEditMed.setText(medicamento?.intervaloTiempo.toString())
         fbinding.etFechaFinEdit.setOnClickListener{showDatePickerDialog()}
         fbinding.etHoraPrimeraEditar.setOnClickListener{showTimePickerDialog()}
+        fbinding.btnGuardarEditMed.setOnClickListener { save() }
+        fbinding.btnEliminarEditMed.setOnClickListener {
+            try{
+                if(daoMedicamento.eliminarMedic(idMedicamento)){
+                    Toast.makeText(activity, "El medicamento a sido eliminado", Toast.LENGTH_SHORT).show()
+                }
+            } catch (ex:Exception){
+                ex.printStackTrace()
+                Toast.makeText(activity, "Error al borrar medicamento", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun save() {
+        try{
+            val name = fbinding.etEditMedicamento.text.toString()
+            val intervalo = fbinding.etIntervaloEditMed.text.toString().toInt()
+            val horaInicial = fbinding.etHoraPrimeraEditar.text.toString()
+            val fechaFin = fbinding.etFechaFinEdit.text.toString()
+
+            val date = LocalDate.parse(fechaFin, DateTimeFormatter.ISO_LOCAL_DATE)
+            if(daoMedicamento.editarMedic(idMedicamento, name, intervalo, horaInicial, date)){
+                Toast.makeText(activity, "Se a guardado exitosamente", Toast.LENGTH_SHORT).show()
+            }
+
+        }catch (ex:Exception){
+            Toast.makeText(activity, "Los campos deben de ser rellenados", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun showTimePickerDialog() {
         val timePicker = TimePickerFragment {onTimeSelected(it)}
         timePicker.show(parentFragmentManager, "time")
@@ -61,9 +112,7 @@ class EditarMedicamentoFragment : Fragment() {
     fun onDateSelected(day: Int, month: Int, year: Int){
         if (day >= 1 && day <= 9 && month > 9) {
             fbinding.etFechaFinEdit.setText("$year-$month-0$day")
-
         }
-
         if (day >= 1 && day <= 9 && month >= 1 && month <= 9) {
             fbinding.etFechaFinEdit.setText("$year-0$month-0$day")
 
@@ -85,7 +134,6 @@ class EditarMedicamentoFragment : Fragment() {
          * @param param2 Parameter 2.
          * @return A new instance of fragment EditarMedicamentoFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             EditarMedicamentoFragment().apply {

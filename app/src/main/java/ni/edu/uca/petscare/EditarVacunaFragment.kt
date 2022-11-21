@@ -61,11 +61,14 @@ class EditarVacunaFragment : Fragment() {
         /* Devolver DaoVacunas a MostrarVacunasFragment */
         navController.previousBackStackEntry?.savedStateHandle?.set("EditarVacuna", daoVacuna)
         iniciar()
-        return inflater.inflate(R.layout.fragment_editar_vacuna, container, false)
+        return fbinding.root
 
     }
     @RequiresApi(Build.VERSION_CODES.O)
     private fun iniciar() {
+        val vacuna = daoVacuna.buscarVacunaID(idVacuna)
+        fbinding.etVacunaEditar.setText(vacuna?.nombreVacuna)
+        fbinding.etClinicaEditar.setText(vacuna?.clinica)
         fbinding.etFechaProgEditar.setOnClickListener{showDatePickerDialog()}
         fbinding.btnGuardarEditVac.setOnClickListener {
             save()
@@ -96,6 +99,15 @@ class EditarVacunaFragment : Fragment() {
         } catch (ex: Exception){
             ex.printStackTrace()
             Toast.makeText(activity, "Los campos deben de ser rellenados", Toast.LENGTH_SHORT).show()
+        }
+        limpiar()
+    }
+
+    private fun limpiar() {
+        with(fbinding){
+            etVacunaEditar.setText("")
+            etFechaProgEditar.setText("")
+            etClinicaEditar.setText("")
         }
     }
 

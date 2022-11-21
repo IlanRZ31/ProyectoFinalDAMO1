@@ -5,6 +5,7 @@ import android.os.Parcelable
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import ni.edu.uca.petscare.entidades.Medicamento
+import ni.edu.uca.petscare.entidades.Vacuna
 import java.sql.Time
 import java.time.LocalDate
 
@@ -16,24 +17,69 @@ class DaoMedicamento(): Parcelable {
     }
 
     fun agregarMedic(
-        idMedicamento: Int,
         idMascota: Int,
         nombreMedicamento: String,
         intervaloTiempo: Int,
-        horaInicial: Time,
+        horaInicial: String,
         fechaFin: LocalDate
     ): Boolean{
+        var horaInicio = obtenerHora(horaInicial)
         val idMedic = crearIdMedic()
         try {
-            Log.wtf("DAO_MEDICAMENTO", "AL MENOS LLEGA ACA")
+            Log.wtf("DAO_MEDICAMENTO_AGREGAR", "AL MENOS LLEGA ACA / ${horaInicio.hours}:${horaInicio.minutes}")
             val medic =
-                Medicamento(idMedicamento, idMascota, nombreMedicamento, intervaloTiempo, horaInicial, fechaFin)
+                Medicamento(idMedic, idMascota, nombreMedicamento, intervaloTiempo, horaInicio, fechaFin)
             listMedicamento.add(medic)
             return true
         }catch (ex: Exception){
             ex.printStackTrace()
         }
         return false
+    }
+
+    private fun obtenerHora(tiempo: String): Time{
+        var hora: Int = 0
+        var minutos: Int = 0
+
+        var actualHora: Boolean =true
+        var cadenaTemp = ""
+        try{
+            for (ch in tiempo.iterator()) {
+                if(ch != ':'){
+                    cadenaTemp += "$ch"
+                }
+                else if(actualHora){
+                    hora = cadenaTemp.toInt()
+                    cadenaTemp = ""
+                    actualHora = false
+
+                }
+                Log.wtf("OBTENER_HORA", ">>>>>>>$cadenaTemp")
+            }
+            minutos = cadenaTemp.toInt()
+            Log.wtf("OBTENER_HORA", ">>>>>>>>>>>>>>$hora , $minutos")
+        }catch (ex:Exception){
+            ex.printStackTrace()
+        }
+        return Time(hora, minutos, 0)
+    }
+
+    fun buscarMedicamento(idMedicamento: Int): Medicamento? {
+        var medicamento: Medicamento
+        try {
+            var i = 0
+            while (i < listMedicamento.size) {
+                if (listMedicamento[i].idMedicamento == idMedicamento) {
+                    medicamento = listMedicamento[i]
+                    return medicamento
+                }
+                i++
+            }
+
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
+        return null
     }
 
     private fun crearIdMedic(): Int{
@@ -58,20 +104,20 @@ class DaoMedicamento(): Parcelable {
     }
     fun editarMedic(
         idMedicamento: Int,
-        idMascota: Int,
         nombreMedicamento: String,
         intervaloTiempo: Int,
-        horaInicial: Time,
+        horaInicial: String,
         fechaFin: LocalDate
     ): Boolean{
         try{
+            val horaInit = obtenerHora(horaInicial)
+            Log.wtf("DAO_MEDICAMENTO_EDITAR", ">>>>>>>>>>>>>>>>${horaInit.hours.toString()}")
             var i = 0
             while (i < listMedicamento.size){
                 if (listMedicamento[i].idMedicamento == idMedicamento){
-                    listMedicamento[i].idMascota = idMascota
                     listMedicamento[i].nombreMedicamento = nombreMedicamento
                     listMedicamento[i].intervaloTiempo = intervaloTiempo
-                    listMedicamento[i].horaInicial = horaInicial
+                    listMedicamento[i].horaInicial = horaInit
                     listMedicamento[i].fechaFin = fechaFin
                     return true
                 }
@@ -82,6 +128,7 @@ class DaoMedicamento(): Parcelable {
         }
         return false
     }
+
 
     fun eliminarMedic(idMedicamento: Int): Boolean{
         try{
@@ -99,11 +146,18 @@ class DaoMedicamento(): Parcelable {
         return false
     }
 
-    fun mostrarMedic(): ArrayList<Medicamento>{
-        val medicamento = listMedicamento
-        try{
-            return ArrayList(medicamento.sortedWith(compareBy(Medicamento::nombreMedicamento)))
-        }catch (ex: Exception){
+    fun mostrarMedic(idMascota: Int): ArrayList<Medicamento>{
+        var medicamento = listMedicamento
+        try {
+            val medicDeMascota = ArrayList<Medicamento>()
+
+            for(x in medicamento){
+                if(x.idMascota == idMascota){
+                    medicDeMascota.add(x)
+                }
+            }
+            return medicDeMascota
+        } catch (ex: Exception) {
             ex.printStackTrace()
         }
         return medicamento

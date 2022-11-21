@@ -1,14 +1,23 @@
 package ni.edu.uca.petscare
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import ni.edu.uca.petscare.dao.DaoMedicamento
 import ni.edu.uca.petscare.databinding.FragmentNuevoMedicamentoBinding
+import java.sql.Time
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
-// TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -19,10 +28,12 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class NuevoMedicamentoFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var fbinding: FragmentNuevoMedicamentoBinding
+    private val args: NuevoMedicamentoFragmentArgs by navArgs()
+    private lateinit var daoMedicamentos: DaoMedicamento
+    private var idMascota = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,22 +43,54 @@ class NuevoMedicamentoFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         fbinding = FragmentNuevoMedicamentoBinding.inflate(layoutInflater)
+        daoMedicamentos = args.daoMedicamento
+        idMascota = args.idMascota
+
+        var navController = findNavController()
+        /* Devolver daoMedicamentos a MostrarMedicamentosFragment */
+        navController.previousBackStackEntry?.savedStateHandle?.set("NuevoMedicamento", daoMedicamentos)
+
         iniciar()
         return fbinding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun iniciar() {
         fbinding.editTextDate.setOnClickListener{showDatePickerDialog()}
         fbinding.etHoraPrimNuevMed.setOnClickListener{showTimePickerDialog()}
+        fbinding.btnGuardarNuevMed.setOnClickListener {
+            save()
+        }
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun save() {
+        try{
+            val medicamento = fbinding.etNuevoMedicamento.text.toString()
+            val intervalo = fbinding.etIntervaloNuevoMed.text.toString().toInt()
+            val horaInicial = fbinding.etHoraPrimNuevMed.text.toString()
+            val fechaFin = fbinding.editTextDate.text.toString()
+            Log.wtf("NUEVO_MEDICAMENTO", ">>>>>>>>>>>$horaInicial")
+
+            val date = LocalDate.parse(fechaFin, DateTimeFormatter.ISO_LOCAL_DATE)
+            if(daoMedicamentos.agregarMedic(idMascota, medicamento, intervalo, horaInicial, date)){
+                Toast.makeText(activity,"Se a guardado exitosamente", Toast.LENGTH_SHORT).show()
+            }
+
+        }catch (ex:Exception){
+            Toast.makeText(activity, "Los campos deben de ser rellenados", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    /* Funciones de gestion de tiempo*/
     private fun showTimePickerDialog() {
         val timePicker = TimePickerFragment {onTimeSelected(it)}
         timePicker.show(parentFragmentManager, "time")
@@ -57,6 +100,7 @@ class NuevoMedicamentoFragment : Fragment() {
         fbinding.etHoraPrimNuevMed.setText("$time")
     }
 
+    /* Funciones de gestion de fecha */
     private fun showDatePickerDialog() {
         val datePicker = DatePickerFragment {day, month, year -> onDateSelected(day, month, year)}
         datePicker.show(parentFragmentManager, "datePicker" )
@@ -88,7 +132,6 @@ class NuevoMedicamentoFragment : Fragment() {
          * @param param2 Parameter 2.
          * @return A new instance of fragment NuevoMedicamentoFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             NuevoMedicamentoFragment().apply {

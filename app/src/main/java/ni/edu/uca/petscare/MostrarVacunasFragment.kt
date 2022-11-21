@@ -62,7 +62,6 @@ class MostrarVacunasFragment : Fragment() {
         /* Obtener DaoVacuna de EditarVacunaFragment */
         navControllers.currentBackStackEntry?.savedStateHandle?.getLiveData<DaoVacuna>("EditarVacuna")
             ?.observe(viewLifecycleOwner) {result -> daoVacunas = result}
-
         iniciar()
         return fbinding.root
     }

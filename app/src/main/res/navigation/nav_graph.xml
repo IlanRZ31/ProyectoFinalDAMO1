@@ -113,6 +113,12 @@
         <action
             android:id="@+id/acMostrarMedicamentoNuevoMedicamento"
             app:destination="@id/nuevoMedicamentoFragment" />
+        <argument
+            android:name="idMascota"
+            app:argType="integer" />
+        <argument
+            android:name="daoMedicamento"
+            app:argType="ni.edu.uca.petscare.dao.DaoMedicamento" />
     </fragment>
     <fragment
         android:id="@+id/editarMedicamentoFragment"
@@ -130,7 +136,14 @@
         android:id="@+id/nuevoMedicamentoFragment"
         android:name="ni.edu.uca.petscare.NuevoMedicamentoFragment"
         android:label="fragment_nuevo_medicamento"
-        tools:layout="@layout/fragment_nuevo_medicamento" />
+        tools:layout="@layout/fragment_nuevo_medicamento" >
+        <argument
+            android:name="idMascota"
+            app:argType="integer" />
+        <argument
+            android:name="daoMedicamento"
+            app:argType="ni.edu.uca.petscare.dao.DaoMedicamento" />
+    </fragment>
     <fragment
         android:id="@+id/editarMascotaFragment"
         android:name="ni.edu.uca.petscare.EditarMascotaFragment"

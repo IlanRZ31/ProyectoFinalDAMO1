@@ -138,7 +138,7 @@ class MostrarMascotasFragment : Fragment() {
         navController.currentBackStackEntry?.savedStateHandle?.getLiveData<DaoVacuna>("VistaMascota_Vacuna")
             ?.observe(viewLifecycleOwner){ result -> vacunas = result}
 
-        /* MEDICAMENTO */
+        /* MEDICAMENTO de vistaMascota */
         navController.currentBackStackEntry?.savedStateHandle?.getLiveData<DaoMedicamento>("VistaMascota_Medicamento")
             ?.observe(viewLifecycleOwner) { result -> medicamentos = result}
         iniciar()

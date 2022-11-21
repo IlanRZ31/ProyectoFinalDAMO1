@@ -33,9 +33,7 @@ class VistaMascotaFragment : Fragment() {
     private lateinit var daoVacuna: DaoVacuna
     private lateinit var daoMascota: DaoMascota
     private lateinit var daoMedicamento: DaoMedicamento
-    private var idVacuna: Int = 0
     private var idMascota: Int = 0
-    private var idMedicamento: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -162,7 +160,7 @@ class VistaMascotaFragment : Fragment() {
             Navigation.findNavController(fbinding.root).navigate(action)
         }
         fbinding.btnMenuTratamiento.setOnClickListener {
-            val action = VistaMascotaFragmentDirections.acVistaMascotaMostrarMedicamentos()
+            val action = VistaMascotaFragmentDirections.acVistaMascotaMostrarMedicamentos(idMascota, daoMedicamento)
             Navigation.findNavController(fbinding.root).navigate(action)
         }
     }
@@ -176,7 +174,6 @@ class VistaMascotaFragment : Fragment() {
          * @param param2 Parameter 2.
          * @return A new instance of fragment VistaMascotaFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             VistaMascotaFragment().apply {
