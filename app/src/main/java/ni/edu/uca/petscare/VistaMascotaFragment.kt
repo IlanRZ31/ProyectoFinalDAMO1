@@ -75,7 +75,7 @@ class VistaMascotaFragment : Fragment() {
                 if (!mascotaEliminada) {
                     val confirmarAlert = AlertDialog.Builder(context)
                         .setTitle("ELIMINAR MASCOTA")
-                        .setMessage("Esta seguro que desea a esta mascota?")
+                        .setMessage("¿Esta seguro que desea a esta mascota?")
                         .setIcon(R.drawable.ic_warning)
                         .setPositiveButton("Si") { _, _ ->
                             eliminar()
@@ -88,7 +88,6 @@ class VistaMascotaFragment : Fragment() {
                             ).show()
                         }.create()
                     confirmarAlert.show()
-                    mascotaEliminada = true
                 } else {
                     Toast.makeText(
                         activity,
@@ -111,6 +110,7 @@ class VistaMascotaFragment : Fragment() {
                     "Registro eliminado exitosamente",
                     Toast.LENGTH_SHORT
                 ).show()
+                mascotaEliminada = true
             }
         } catch (ex: Exception) {
             ex.printStackTrace()
