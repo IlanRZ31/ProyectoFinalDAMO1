@@ -1,5 +1,6 @@
 package ni.edu.uca.petscare
 
+import android.app.AlertDialog
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -84,20 +85,26 @@ class EditarMedicamentoFragment : Fragment() {
         fbinding.btnEliminarEditMed.setOnClickListener {
             if (!medicamentoEliminado) {
                 try {
-                    if (daoMedicamento.eliminarMedic(idMedicamento)) {
-                        Toast.makeText(
-                            activity,
-                            "El medicamento a sido eliminado",
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
-                    }
+                    val confirmarAlert = AlertDialog.Builder(context)
+                        .setTitle("ELIMINAR MEDICAMENTO")
+                        .setMessage("¿Esta seguro que desea este medicamento?")
+                        .setIcon(R.drawable.ic_warning)
+                        .setPositiveButton("Si") { _, _ ->
+                            eliminar()
+                        }
+                        .setNegativeButton("No") { _, _ ->
+                            Toast.makeText(
+                                context,
+                                "Abortado",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }.create()
+                    confirmarAlert.show()
                 } catch (ex: Exception) {
                     ex.printStackTrace()
                     Toast.makeText(activity, "Error al borrar medicamento", Toast.LENGTH_SHORT)
                         .show()
                 }
-                medicamentoEliminado = true
             }else {
                 Toast.makeText(
                     activity,
@@ -105,6 +112,18 @@ class EditarMedicamentoFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+        }
+    }
+
+    private fun eliminar() {
+        if (daoMedicamento.eliminarMedic(idMedicamento)) {
+            Toast.makeText(
+                activity,
+                "El medicamento a sido eliminado",
+                Toast.LENGTH_SHORT
+            )
+                .show()
+            medicamentoEliminado = true
         }
     }
 

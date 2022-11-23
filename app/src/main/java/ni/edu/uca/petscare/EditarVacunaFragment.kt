@@ -1,5 +1,6 @@
 package ni.edu.uca.petscare
 
+import android.app.AlertDialog
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -85,14 +86,24 @@ class EditarVacunaFragment : Fragment() {
         fbinding.btnEliminarEditVacuna.setOnClickListener {
             if(!vacunaEliminada) {
                 try {
-                    if (daoVacuna.eliminarVacuna(idVacuna)) {
-                        Toast.makeText(activity, "Se a eliminado la vacuna", Toast.LENGTH_SHORT)
-                            .show()
-                    }
+                    val confirmarAlert = AlertDialog.Builder(context)
+                        .setTitle("ELIMINAR VACUNA")
+                        .setMessage("¿Esta seguro que desea esta vacuna?")
+                        .setIcon(R.drawable.ic_warning)
+                        .setPositiveButton("Si") { _, _ ->
+                            eliminar()
+                        }
+                        .setNegativeButton("No") { _, _ ->
+                            Toast.makeText(
+                                context,
+                                "Abortado",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }.create()
+                    confirmarAlert.show()
                 } catch (ex: Exception) {
                     ex.printStackTrace()
                 }
-                vacunaEliminada = true
             }else {
                 Toast.makeText(
                     activity,
@@ -100,6 +111,14 @@ class EditarVacunaFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+        }
+    }
+
+    private fun eliminar() {
+        if (daoVacuna.eliminarVacuna(idVacuna)) {
+            Toast.makeText(activity, "Se a eliminado la vacuna", Toast.LENGTH_SHORT)
+                .show()
+            vacunaEliminada = true
         }
     }
 
