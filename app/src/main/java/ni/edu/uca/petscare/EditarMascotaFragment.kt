@@ -112,25 +112,43 @@ class EditarMascotaFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun showDatePickerDialog() {
         val datePicker = DatePickerFragment {day, month, year -> onDateSelected(day, month, year)}
         datePicker.show(parentFragmentManager, "datePicker" )
     }
+    @RequiresApi(Build.VERSION_CODES.O)
     fun onDateSelected(day: Int, month: Int, year: Int){
-        if (day >= 1 && day <= 9 && month > 9) {
+        val validacion = validarFecha(day, month, year)
+        if (day >= 1 && day <= 9 && month > 9 && validacion == true) {
             fbinding.etEFechaNacimiento.setText("$year-$month-0$day")
-
-        }
-
-        if (day >= 1 && day <= 9 && month >= 1 && month <= 9) {
+        }else if (day >= 1 && day <= 9 && month >= 1 && month <= 9 && validacion == true) {
             fbinding.etEFechaNacimiento.setText("$year-0$month-0$day")
 
-        }
-        if (month >= 1 && month <= 9 && day >= 10) {
+        }else if (month >= 1 && month <= 9 && day >= 10 && validacion == true) {
             fbinding.etEFechaNacimiento.setText("$year-0$month-$day")
-        }
-        if (month > 9 && day > 9) {
+        }else if (month > 9 && day > 9 && validacion == true) {
             fbinding.etEFechaNacimiento.setText("$year-$month-$day")
+        }else if(validacion ==false){
+            fbinding.etEFechaNacimiento.setText("")
+            Toast.makeText(activity, "La fecha seleccionada es mayor a la actual", Toast.LENGTH_LONG).show()
+        }
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun validarFecha(day: Int, month: Int, year: Int): Boolean {
+        val dateTime = LocalDate.now()
+
+        if (year <= dateTime.year && month == dateTime.month.value && day <= dateTime.dayOfMonth) {
+            return true
+
+        } else if (year <= dateTime.year && month < dateTime.month.value) {
+            return true
+        } else if(year < dateTime.year && month > dateTime.month.value){
+            return true
+        }else {
+            return false
         }
 
     }
