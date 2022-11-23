@@ -1,10 +1,10 @@
 package ni.edu.uca.petscare
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +19,10 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
+import ni.edu.uca.petscare.databinding.FragmentVistaMascotaBinding
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.concurrent.ThreadLocalRandom.current
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -60,8 +64,9 @@ class NuevaMascotaFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun iniciar() {
-        fbinding.etFechaNacimiento.setOnClickListener { showDatePickerDialog() }
+        fbinding.etFechaNacimiento.setOnClickListener { showDatePickerDialog()}
         fbinding.ivImagen.setOnClickListener {
+
             val intent = Intent()
             intent.action = Intent.ACTION_GET_CONTENT
             intent.type = "image/*"
@@ -86,6 +91,7 @@ class NuevaMascotaFragment : Fragment() {
     private fun save() {
         with(fbinding) {
             try {
+
                 val nombre = etNombre.text.toString()
                 val tipo = spTipo.selectedItem.toString()
                 val raza = etRaza.text.toString()
@@ -94,10 +100,15 @@ class NuevaMascotaFragment : Fragment() {
                 val image = ivImagen
                 val date = LocalDate.parse(fechaNacimiento, DateTimeFormatter.ISO_LOCAL_DATE)
 
-                if (mascotas.agregarMascota(nombre, tipo, raza, date, peso, image)) {
+
+
+                if (mascotas.agregarMascota(nombre, tipo, raza, date, peso, image )) {
+
                     Toast.makeText(activity, "Se a guardado exitosamente", Toast.LENGTH_SHORT)
                         .show()
+
                 }
+
 
             } catch (ex: Exception) {
                 ex.printStackTrace()
@@ -112,11 +123,15 @@ class NuevaMascotaFragment : Fragment() {
     }
 
     private fun showDatePickerDialog() {
-        val datePicker = DatePickerFragment { day, month, year -> onDateSelected(day, month, year) }
+        val datePicker = DatePickerFragment { day, month, year -> onDateSelected(day, month, year)}
+
         datePicker.show(parentFragmentManager, "datePicker")
+
+
     }
 
     fun onDateSelected(day: Int, month: Int, year: Int) {
+
         if (day >= 1 && day <= 9 && month > 9) {
             fbinding.etFechaNacimiento.setText("$year-$month-0$day")
         }

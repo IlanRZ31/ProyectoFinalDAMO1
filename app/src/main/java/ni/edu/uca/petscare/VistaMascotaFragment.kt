@@ -154,6 +154,8 @@ class VistaMascotaFragment : Fragment() {
         fbinding.tvTipoVistaMascota.text = mascota.tipo
         fbinding.imageView.setImageDrawable(mascota.image.drawable)
 
+
+
         fbinding.btnMenuVacunas.setOnClickListener {
             val action =
                 VistaMascotaFragmentDirections.acVistaMascotaMostrarVacunas(daoVacuna, idMascota)
