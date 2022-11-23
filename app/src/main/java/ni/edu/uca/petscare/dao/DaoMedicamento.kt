@@ -163,6 +163,22 @@ class DaoMedicamento(): Parcelable {
         return medicamento
     }
 
+    fun eliminarMedicamentoWhere(idMascota: Int):Boolean{
+        try{
+            var i = 0
+            while (i < listMedicamento.size){
+                if(listMedicamento[i].idMascota == idMascota){
+                    listMedicamento.removeAt(i)
+                }
+                i++
+            }
+            return true
+        }catch (ex:Exception){
+            ex.printStackTrace()
+        }
+        return false
+    }
+
     override fun writeToParcel(parcel: Parcel, flags: Int) {
 
     }

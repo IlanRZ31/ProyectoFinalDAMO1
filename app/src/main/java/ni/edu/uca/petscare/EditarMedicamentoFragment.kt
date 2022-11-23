@@ -32,6 +32,7 @@ class EditarMedicamentoFragment : Fragment() {
     private val args: EditarMedicamentoFragmentArgs by navArgs()
     private var idMedicamento = 0
     private lateinit var daoMedicamento: DaoMedicamento
+    private var medicamentoEliminado: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,63 +54,94 @@ class EditarMedicamentoFragment : Fragment() {
 
         val navController = findNavController()
         /* Devolver daoMedicamento a MostrarMedicamentoFragment */
-        navController.previousBackStackEntry?.savedStateHandle?.set("EditarMedicamento", daoMedicamento)
+        navController.previousBackStackEntry?.savedStateHandle?.set(
+            "EditarMedicamento",
+            daoMedicamento
+        )
 
         iniciar()
         return fbinding.root
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
     private fun iniciar() {
         val medicamento = daoMedicamento.buscarMedicamento(idMedicamento)
         fbinding.etEditMedicamento.setText(medicamento?.nombreMedicamento)
         fbinding.etIntervaloEditMed.setText(medicamento?.intervaloTiempo.toString())
-        fbinding.etFechaFinEdit.setOnClickListener{showDatePickerDialog()}
-        fbinding.etHoraPrimeraEditar.setOnClickListener{showTimePickerDialog()}
-        fbinding.btnGuardarEditMed.setOnClickListener { save() }
+        fbinding.etFechaFinEdit.setOnClickListener { showDatePickerDialog() }
+        fbinding.etHoraPrimeraEditar.setOnClickListener { showTimePickerDialog() }
+        fbinding.btnGuardarEditMed.setOnClickListener {
+            if (!medicamentoEliminado) {
+                save()
+            } else {
+                Toast.makeText(
+                    activity,
+                    "No se puede guardar porque \n el medicamento a sido eliminado",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
         fbinding.btnEliminarEditMed.setOnClickListener {
-            try{
-                if(daoMedicamento.eliminarMedic(idMedicamento)){
-                    Toast.makeText(activity, "El medicamento a sido eliminado", Toast.LENGTH_SHORT).show()
+            if (!medicamentoEliminado) {
+                try {
+                    if (daoMedicamento.eliminarMedic(idMedicamento)) {
+                        Toast.makeText(
+                            activity,
+                            "El medicamento a sido eliminado",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }
+                } catch (ex: Exception) {
+                    ex.printStackTrace()
+                    Toast.makeText(activity, "Error al borrar medicamento", Toast.LENGTH_SHORT)
+                        .show()
                 }
-            } catch (ex:Exception){
-                ex.printStackTrace()
-                Toast.makeText(activity, "Error al borrar medicamento", Toast.LENGTH_SHORT).show()
+                medicamentoEliminado = true
+            }else {
+                Toast.makeText(
+                    activity,
+                    "No se puede eliminar porque \n el medicamento ya sido eliminado",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun save() {
-        try{
+        try {
             val name = fbinding.etEditMedicamento.text.toString()
             val intervalo = fbinding.etIntervaloEditMed.text.toString().toInt()
             val horaInicial = fbinding.etHoraPrimeraEditar.text.toString()
             val fechaFin = fbinding.etFechaFinEdit.text.toString()
 
             val date = LocalDate.parse(fechaFin, DateTimeFormatter.ISO_LOCAL_DATE)
-            if(daoMedicamento.editarMedic(idMedicamento, name, intervalo, horaInicial, date)){
+            if (daoMedicamento.editarMedic(idMedicamento, name, intervalo, horaInicial, date)) {
                 Toast.makeText(activity, "Se a guardado exitosamente", Toast.LENGTH_SHORT).show()
             }
 
-        }catch (ex:Exception){
-            Toast.makeText(activity, "Los campos deben de ser rellenados", Toast.LENGTH_SHORT).show()
+        } catch (ex: Exception) {
+            Toast.makeText(activity, "Los campos deben de ser rellenados", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
     private fun showTimePickerDialog() {
-        val timePicker = TimePickerFragment {onTimeSelected(it)}
+        val timePicker = TimePickerFragment { onTimeSelected(it) }
         timePicker.show(parentFragmentManager, "time")
     }
 
-    private fun onTimeSelected(time:String){
+    private fun onTimeSelected(time: String) {
         fbinding.etHoraPrimeraEditar.setText("$time")
     }
 
     private fun showDatePickerDialog() {
-        val datePicker = DatePickerFragment {day, month, year -> onDateSelected(day, month, year)}
-        datePicker.show(parentFragmentManager, "datePicker" )
+        val datePicker = DatePickerFragment { day, month, year -> onDateSelected(day, month, year) }
+        datePicker.show(parentFragmentManager, "datePicker")
     }
-    fun onDateSelected(day: Int, month: Int, year: Int){
+
+    fun onDateSelected(day: Int, month: Int, year: Int) {
         if (day >= 1 && day <= 9 && month > 9) {
             fbinding.etFechaFinEdit.setText("$year-$month-0$day")
         }
