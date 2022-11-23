@@ -34,6 +34,7 @@ class VistaMascotaFragment : Fragment() {
     private lateinit var daoMascota: DaoMascota
     private lateinit var daoMedicamento: DaoMedicamento
     private var idMascota: Int = 0
+    private var mascotaEliminada: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,51 +53,73 @@ class VistaMascotaFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         when (item.itemId) {
             R.id.iEditar -> {
-                val action = VistaMascotaFragmentDirections.acVistaMascotaEditarMascota(
-                    idMascota,
-                    daoMascota
-                )
-                Navigation.findNavController(fbinding.root)
-                    .navigate(action)
+                if (!mascotaEliminada) {
+                    val action = VistaMascotaFragmentDirections.acVistaMascotaEditarMascota(
+                        idMascota,
+                        daoMascota
+                    )
+                    Navigation.findNavController(fbinding.root)
+                        .navigate(action)
+                } else {
+                    Toast.makeText(
+                        activity,
+                        "No se puede editar porque\n la mascota fue eliminada",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
 
             R.id.iEliminar -> {
-                val confirmarAlert = AlertDialog.Builder(context)
-                    .setTitle("ELIMINAR MASCOTA")
-                    .setMessage("Esta seguro que desea a esta mascota?")
-                    .setIcon(R.drawable.ic_warning)
-                    .setPositiveButton("Si") { _, _ ->
-                        try {
-                            daoMascota.eliminarMascota(idMascota)
-                            /* Toast que confirma que se elimino*/
-                            Toast.makeText(
-                                context,
-                                "Registro eliminado exitosamente",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        } catch (ex: Exception) {
-                            ex.printStackTrace()
-                            Toast.makeText(
-                                context,
-                                "ERROR: No se a podido eliminar la mascota",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                if (!mascotaEliminada) {
+                    val confirmarAlert = AlertDialog.Builder(context)
+                        .setTitle("ELIMINAR MASCOTA")
+                        .setMessage("Esta seguro que desea a esta mascota?")
+                        .setIcon(R.drawable.ic_warning)
+                        .setPositiveButton("Si") { _, _ ->
+                            eliminar()
                         }
-                    }
-                    .setNegativeButton("No") { _, _ ->
-                        Toast.makeText(
-                            context,
-                            "Abortado",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }.create()
-                confirmarAlert.show()
+                        .setNegativeButton("No") { _, _ ->
+                            Toast.makeText(
+                                context,
+                                "Abortado",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }.create()
+                    confirmarAlert.show()
+                    mascotaEliminada = true
+                } else {
+                    Toast.makeText(
+                        activity,
+                        "No se puede eliminar porque\n la mascota ya fue eliminada",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
         return true
+    }
+
+    private fun eliminar() {
+        try {
+            if (daoMascota.eliminarMascota(idMascota) &&
+                daoMedicamento.eliminarMedicamentoWhere(idMascota) &&
+                daoVacuna.eliminarVacunaWhere(idMascota)) {
+                Toast.makeText(
+                    context,
+                    "Registro eliminado exitosamente",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            Toast.makeText(
+                context,
+                "ERROR: No se a podido eliminar la mascota",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -153,18 +176,39 @@ class VistaMascotaFragment : Fragment() {
         fbinding.tvPesoVistaMascota.text = "${mascota.peso.toString()} kg"
         fbinding.tvTipoVistaMascota.text = mascota.tipo
         fbinding.imageView.setImageDrawable(mascota.image.drawable)
-
-
-
         fbinding.btnMenuVacunas.setOnClickListener {
-            val action =
-                VistaMascotaFragmentDirections.acVistaMascotaMostrarVacunas(daoVacuna, idMascota)
-            Navigation.findNavController(fbinding.root).navigate(action)
+            if (!mascotaEliminada) {
+                val action =
+                    VistaMascotaFragmentDirections.acVistaMascotaMostrarVacunas(
+                        daoVacuna,
+                        idMascota
+                    )
+                Navigation.findNavController(fbinding.root).navigate(action)
+            } else {
+                Toast.makeText(
+                    activity,
+                    "No se puede acceder a vacunas porque\n la mascota fue eliminada",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
+
         fbinding.btnMenuTratamiento.setOnClickListener {
-            val action = VistaMascotaFragmentDirections.acVistaMascotaMostrarMedicamentos(idMascota, daoMedicamento)
-            Navigation.findNavController(fbinding.root).navigate(action)
+            if (!mascotaEliminada) {
+                val action = VistaMascotaFragmentDirections.acVistaMascotaMostrarMedicamentos(
+                    idMascota,
+                    daoMedicamento
+                )
+                Navigation.findNavController(fbinding.root).navigate(action)
+            } else {
+                Toast.makeText(
+                    activity,
+                    "No se puede acceder a los medicamentos porque\n la mascota fue eliminada",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
+
     }
 
     companion object {

@@ -180,9 +180,21 @@ class DaoVacuna() : Parcelable {
         return vacuna
     }
 
-
-
-
+    fun eliminarVacunaWhere(idMascota: Int):Boolean{
+        try{
+            var i = 0
+            while (i < listVacuna.size){
+                if(listVacuna[i].idMascota == idMascota){
+                    listVacuna.removeAt(i)
+                }
+                i++
+            }
+            return true
+        }catch (ex:Exception){
+            ex.printStackTrace()
+        }
+        return false
+    }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
 
