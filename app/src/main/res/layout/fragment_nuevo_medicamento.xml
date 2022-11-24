@@ -73,6 +73,7 @@
     <EditText
         android:id="@+id/etIntervaloNuevoMed"
         android:layout_width="match_parent"
+        android:hint="X Horas"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
@@ -94,6 +95,7 @@
         android:id="@+id/etHoraPrimNuevMed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="HH:MM"
         android:layout_marginTop="8dp"
         android:clickable="false"
         android:ems="10"

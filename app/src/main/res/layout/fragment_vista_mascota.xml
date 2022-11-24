@@ -32,7 +32,7 @@
         android:scaleType="fitCenter"
         android:outlineProvider="none"
         android:src="@drawable/perro"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tvNombreMascotaDetallada"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

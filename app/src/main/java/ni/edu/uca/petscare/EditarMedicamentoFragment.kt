@@ -67,8 +67,12 @@ class EditarMedicamentoFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun iniciar() {
         val medicamento = daoMedicamento.buscarMedicamento(idMedicamento)
+        var tiempo = "${medicamento?.horaInicial?.hours}:${medicamento?.horaInicial?.minutes}"
         fbinding.etEditMedicamento.setText(medicamento?.nombreMedicamento)
         fbinding.etIntervaloEditMed.setText(medicamento?.intervaloTiempo.toString())
+        fbinding.etHoraPrimeraEditar.setText(tiempo)
+        fbinding.etFechaFinEdit.setText(daoMedicamento.obtenerFechaFin(medicamento!!))
+
         fbinding.etFechaFinEdit.setOnClickListener { showDatePickerDialog() }
         fbinding.etHoraPrimeraEditar.setOnClickListener { showTimePickerDialog() }
         fbinding.btnGuardarEditMed.setOnClickListener {

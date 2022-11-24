@@ -1,15 +1,17 @@
 package ni.edu.uca.petscare.dao
 
+import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import ni.edu.uca.petscare.entidades.Medicamento
 import ni.edu.uca.petscare.entidades.Vacuna
 import java.sql.Time
 import java.time.LocalDate
 
-class DaoMedicamento(): Parcelable {
+class DaoMedicamento() : Parcelable {
 
     var listMedicamento = ArrayList<Medicamento>()
 
@@ -22,33 +24,42 @@ class DaoMedicamento(): Parcelable {
         intervaloTiempo: Int,
         horaInicial: String,
         fechaFin: LocalDate
-    ): Boolean{
+    ): Boolean {
         var horaInicio = obtenerHora(horaInicial)
         val idMedic = crearIdMedic()
         try {
-            Log.wtf("DAO_MEDICAMENTO_AGREGAR", "AL MENOS LLEGA ACA / ${horaInicio.hours}:${horaInicio.minutes}")
+            Log.wtf(
+                "DAO_MEDICAMENTO_AGREGAR",
+                "AL MENOS LLEGA ACA / ${horaInicio.hours}:${horaInicio.minutes}"
+            )
             val medic =
-                Medicamento(idMedic, idMascota, nombreMedicamento, intervaloTiempo, horaInicio, fechaFin)
+                Medicamento(
+                    idMedic,
+                    idMascota,
+                    nombreMedicamento,
+                    intervaloTiempo,
+                    horaInicio,
+                    fechaFin
+                )
             listMedicamento.add(medic)
             return true
-        }catch (ex: Exception){
+        } catch (ex: Exception) {
             ex.printStackTrace()
         }
         return false
     }
 
-    private fun obtenerHora(tiempo: String): Time{
+    fun obtenerHora(tiempo: String): Time {
         var hora: Int = 0
         var minutos: Int = 0
 
-        var actualHora: Boolean =true
+        var actualHora: Boolean = true
         var cadenaTemp = ""
-        try{
+        try {
             for (ch in tiempo.iterator()) {
-                if(ch != ':'){
+                if (ch != ':') {
                     cadenaTemp += "$ch"
-                }
-                else if(actualHora){
+                } else if (actualHora) {
                     hora = cadenaTemp.toInt()
                     cadenaTemp = ""
                     actualHora = false
@@ -58,10 +69,22 @@ class DaoMedicamento(): Parcelable {
             }
             minutos = cadenaTemp.toInt()
             Log.wtf("OBTENER_HORA", ">>>>>>>>>>>>>>$hora , $minutos")
-        }catch (ex:Exception){
+        } catch (ex: Exception) {
             ex.printStackTrace()
         }
         return Time(hora, minutos, 0)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun obtenerFechaFin(medicamento: Medicamento): String {
+        var fechaFin = ""
+        try {
+            fechaFin =
+                "${medicamento.fechaFin.year}-${medicamento.fechaFin.month.value}-${medicamento.fechaFin.dayOfMonth}"
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
+        return fechaFin
     }
 
     fun buscarMedicamento(idMedicamento: Int): Medicamento? {
@@ -82,39 +105,40 @@ class DaoMedicamento(): Parcelable {
         return null
     }
 
-    private fun crearIdMedic(): Int{
+    private fun crearIdMedic(): Int {
         var idMedic = 1
         var i = 0
-        try{
+        try {
             do {
-                if (listMedicamento.isEmpty()){
+                if (listMedicamento.isEmpty()) {
                     return idMedic
-                }else{
-                    if(idMedic <= listMedicamento[i].idMedicamento){
+                } else {
+                    if (idMedic <= listMedicamento[i].idMedicamento) {
                         idMedic = listMedicamento[i].idMedicamento
                     }
                 }
                 i++
-            }while (i < listMedicamento.size)
-        }catch (ex: Exception){
+            } while (i < listMedicamento.size)
+        } catch (ex: Exception) {
             ex.printStackTrace()
             return 0
         }
         return idMedic + 1
     }
+
     fun editarMedic(
         idMedicamento: Int,
         nombreMedicamento: String,
         intervaloTiempo: Int,
         horaInicial: String,
         fechaFin: LocalDate
-    ): Boolean{
-        try{
+    ): Boolean {
+        try {
             val horaInit = obtenerHora(horaInicial)
             Log.wtf("DAO_MEDICAMENTO_EDITAR", ">>>>>>>>>>>>>>>>${horaInit.hours.toString()}")
             var i = 0
-            while (i < listMedicamento.size){
-                if (listMedicamento[i].idMedicamento == idMedicamento){
+            while (i < listMedicamento.size) {
+                if (listMedicamento[i].idMedicamento == idMedicamento) {
                     listMedicamento[i].nombreMedicamento = nombreMedicamento
                     listMedicamento[i].intervaloTiempo = intervaloTiempo
                     listMedicamento[i].horaInicial = horaInit
@@ -123,36 +147,36 @@ class DaoMedicamento(): Parcelable {
                 }
                 i++
             }
-        }catch (ex: Exception){
+        } catch (ex: Exception) {
             ex.printStackTrace()
         }
         return false
     }
 
 
-    fun eliminarMedic(idMedicamento: Int): Boolean{
-        try{
+    fun eliminarMedic(idMedicamento: Int): Boolean {
+        try {
             var i = 0
-            while(i < listMedicamento.size){
-                if (listMedicamento[i].idMedicamento == idMedicamento){
+            while (i < listMedicamento.size) {
+                if (listMedicamento[i].idMedicamento == idMedicamento) {
                     listMedicamento.removeAt(i)
                     return true
                 }
                 i++
             }
-        }catch (ex: Exception){
+        } catch (ex: Exception) {
             ex.printStackTrace()
         }
         return false
     }
 
-    fun mostrarMedic(idMascota: Int): ArrayList<Medicamento>{
+    fun mostrarMedic(idMascota: Int): ArrayList<Medicamento> {
         var medicamento = listMedicamento
         try {
             val medicDeMascota = ArrayList<Medicamento>()
 
-            for(x in medicamento){
-                if(x.idMascota == idMascota){
+            for (x in medicamento) {
+                if (x.idMascota == idMascota) {
                     medicDeMascota.add(x)
                 }
             }
@@ -163,17 +187,17 @@ class DaoMedicamento(): Parcelable {
         return medicamento
     }
 
-    fun eliminarMedicamentoWhere(idMascota: Int):Boolean{
-        try{
+    fun eliminarMedicamentoWhere(idMascota: Int): Boolean {
+        try {
             var i = 0
-            while (i < listMedicamento.size){
-                if(listMedicamento[i].idMascota == idMascota){
+            while (i < listMedicamento.size) {
+                if (listMedicamento[i].idMascota == idMascota) {
                     listMedicamento.removeAt(i)
                 }
                 i++
             }
             return true
-        }catch (ex:Exception){
+        } catch (ex: Exception) {
             ex.printStackTrace()
         }
         return false

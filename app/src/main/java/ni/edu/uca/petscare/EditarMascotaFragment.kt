@@ -58,19 +58,23 @@ class EditarMascotaFragment : Fragment() {
         iniciar()
         return fbinding.root
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
     private fun iniciar() {
         var mascota: Mascota? = daoMascota.buscarMascotaID(idMascota)
+        var fecha =
+            "${mascota?.fechaNacimiento?.year}-${mascota?.fechaNacimiento?.month?.value}-${mascota?.fechaNacimiento?.dayOfMonth}"
         fbinding.etENombre.setText(mascota?.nombre)
         fbinding.etERaza.setText(mascota?.raza)
         fbinding.etEPeso.setText(mascota?.peso.toString())
         fbinding.ivEImagen.setImageDrawable(mascota?.image?.drawable)
+        fbinding.etEFechaNacimiento.setText(fecha)
 
-        fbinding.etEFechaNacimiento.setOnClickListener{showDatePickerDialog()}
+        fbinding.etEFechaNacimiento.setOnClickListener { showDatePickerDialog() }
         fbinding.ivEImagen.setOnClickListener {
             val intent = Intent()
             intent.action = Intent.ACTION_GET_CONTENT
-            intent.type="image/*"
+            intent.type = "image/*"
             startActivityForResult(intent, 100)
         }
         fbinding.btnEGuardarNuevMed.setOnClickListener {
@@ -88,10 +92,10 @@ class EditarMascotaFragment : Fragment() {
             val peso = fbinding.etEPeso.text.toString().toInt()
             val image = fbinding.ivEImagen
             val date = LocalDate.parse(fechaNacimiento, DateTimeFormatter.ISO_LOCAL_DATE)
-            if(daoMascota.editarMascota(idMascota, nombre, tipo, raza, date, peso, image)){
+            if (daoMascota.editarMascota(idMascota, nombre, tipo, raza, date, peso, image)) {
                 Toast.makeText(activity, "Se a guardado exitosamente", Toast.LENGTH_SHORT).show()
             }
-        }catch (ex:Exception){
+        } catch (ex: Exception) {
             ex.printStackTrace()
             Toast.makeText(
                 activity, "Los campos deben de ser rellenados",
@@ -114,24 +118,29 @@ class EditarMascotaFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun showDatePickerDialog() {
-        val datePicker = DatePickerFragment {day, month, year -> onDateSelected(day, month, year)}
-        datePicker.show(parentFragmentManager, "datePicker" )
+        val datePicker = DatePickerFragment { day, month, year -> onDateSelected(day, month, year) }
+        datePicker.show(parentFragmentManager, "datePicker")
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
-    fun onDateSelected(day: Int, month: Int, year: Int){
+    fun onDateSelected(day: Int, month: Int, year: Int) {
         val validacion = validarFecha(day, month, year)
         if (day >= 1 && day <= 9 && month > 9 && validacion == true) {
             fbinding.etEFechaNacimiento.setText("$year-$month-0$day")
-        }else if (day >= 1 && day <= 9 && month >= 1 && month <= 9 && validacion == true) {
+        } else if (day >= 1 && day <= 9 && month >= 1 && month <= 9 && validacion == true) {
             fbinding.etEFechaNacimiento.setText("$year-0$month-0$day")
 
-        }else if (month >= 1 && month <= 9 && day >= 10 && validacion == true) {
+        } else if (month >= 1 && month <= 9 && day >= 10 && validacion == true) {
             fbinding.etEFechaNacimiento.setText("$year-0$month-$day")
-        }else if (month > 9 && day > 9 && validacion == true) {
+        } else if (month > 9 && day > 9 && validacion == true) {
             fbinding.etEFechaNacimiento.setText("$year-$month-$day")
-        }else if(validacion ==false){
+        } else if (validacion == false) {
             fbinding.etEFechaNacimiento.setText("")
-            Toast.makeText(activity, "La fecha seleccionada es mayor a la actual", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                activity,
+                "La fecha seleccionada es mayor a la actual",
+                Toast.LENGTH_LONG
+            ).show()
         }
 
     }
@@ -145,23 +154,24 @@ class EditarMascotaFragment : Fragment() {
 
         } else if (year <= dateTime.year && month < dateTime.month.value) {
             return true
-        } else if(year < dateTime.year && month > dateTime.month.value){
+        } else if (year < dateTime.year && month > dateTime.month.value) {
             return true
-        }else {
+        } else {
             return false
         }
 
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode == 100){
-            if (data!=null){
+        if (requestCode == 100) {
+            if (data != null) {
                 val uri: Uri = data.data!!
                 fbinding.ivEImagen.setImageURI(uri)
-            }
-            else{
-                Toast.makeText(activity, "No ha seleccionado ninguna imagen", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(activity, "No ha seleccionado ninguna imagen", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }

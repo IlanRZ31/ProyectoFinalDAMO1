@@ -71,6 +71,8 @@ class EditarVacunaFragment : Fragment() {
         val vacuna = daoVacuna.buscarVacunaID(idVacuna)
         fbinding.etVacunaEditar.setText(vacuna?.nombreVacuna)
         fbinding.etClinicaEditar.setText(vacuna?.clinica)
+        fbinding.etFechaProgEditar.setText(daoVacuna.obtenerFechaVacunacion(vacuna!!))
+
         fbinding.etFechaProgEditar.setOnClickListener { showDatePickerDialog() }
         fbinding.btnGuardarEditVac.setOnClickListener {
             if (!vacunaEliminada) {

@@ -61,6 +61,15 @@ class NuevoMedicamentoFragment : Fragment() {
         return fbinding.root
     }
 
+    fun limpiar(){
+        with(fbinding){
+            etNuevoMedicamento.setText("")
+            etHoraPrimNuevMed.setText("")
+            etIntervaloNuevoMed.setText("")
+            editTextDate.setText("")
+        }
+    }
+
     @RequiresApi(Build.VERSION_CODES.O)
     private fun iniciar() {
         fbinding.editTextDate.setOnClickListener{showDatePickerDialog()}
@@ -84,10 +93,11 @@ class NuevoMedicamentoFragment : Fragment() {
             if(daoMedicamentos.agregarMedic(idMascota, medicamento, intervalo, horaInicial, date)){
                 Toast.makeText(activity,"Se a guardado exitosamente", Toast.LENGTH_SHORT).show()
             }
-
+            limpiar()
         }catch (ex:Exception){
             Toast.makeText(activity, "Los campos deben de ser rellenados", Toast.LENGTH_SHORT).show()
         }
+
     }
 
     /* Funciones de gestion de tiempo*/

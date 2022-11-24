@@ -257,9 +257,21 @@ class DaoMascota() : Parcelable {
             }
             val nacimientoYear = mascota.fechaNacimiento.year
             val yearActual = Calendar.getInstance().get(Calendar.YEAR)
+            val mesActual = Calendar.getInstance().get(Calendar.MONTH) + 1
+            var restarYear = 0
+            var mesNumero: Int = 0
+            if(mesActual < mascota.fechaNacimiento.month.value){
+                mesNumero = (mesActual + 12) - mascota.fechaNacimiento.month.value
+                restarYear = 1
+
+            }else if(mesActual >= mascota.fechaNacimiento.month.value){
+                mesNumero = mesActual - mascota.fechaNacimiento.month.value
+            }
+            Log.wtf("DAO_MASCOTAS", ">>>>>>>>>>>Actual: $mesActual, Mascota: ${mascota.fechaNacimiento.month.value}")
+
             fecha =
                 "Nació el ${mascota.fechaNacimiento.dayOfMonth} de ${mes}" +
-                        " del ${mascota.fechaNacimiento.year} (${(yearActual - nacimientoYear)} años)"
+                        " del ${mascota.fechaNacimiento.year} (${(yearActual - nacimientoYear - restarYear)} años y ${mesNumero} meses)"
             return fecha
         } catch (ex: Exception) {
             ex.printStackTrace()
