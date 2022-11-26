@@ -9,6 +9,7 @@ class Medicamento(
     var nombreMedicamento: String,
     var intervaloTiempo: Int,
     var horaInicial: Time,
-    var fechaFin: LocalDate
+    var fechaFin: LocalDate,
+    var siguienteDosis: String
 ) {
 }

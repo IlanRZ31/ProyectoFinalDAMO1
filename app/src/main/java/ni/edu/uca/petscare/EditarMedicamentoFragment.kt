@@ -15,6 +15,7 @@ import ni.edu.uca.petscare.dao.DaoMedicamento
 import ni.edu.uca.petscare.databinding.FragmentEditarMascotaBinding
 import ni.edu.uca.petscare.databinding.FragmentEditarMedicamentoBinding
 import java.time.LocalDate
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -138,9 +139,9 @@ class EditarMedicamentoFragment : Fragment() {
             val intervalo = fbinding.etIntervaloEditMed.text.toString().toInt()
             val horaInicial = fbinding.etHoraPrimeraEditar.text.toString()
             val fechaFin = fbinding.etFechaFinEdit.text.toString()
-
+            val siguienteDosis = segundaDosis(horaInicial, intervalo)
             val date = LocalDate.parse(fechaFin, DateTimeFormatter.ISO_LOCAL_DATE)
-            if (daoMedicamento.editarMedic(idMedicamento, name, intervalo, horaInicial, date)) {
+            if (daoMedicamento.editarMedic(idMedicamento, name, intervalo, horaInicial, date, siguienteDosis)) {
                 Toast.makeText(activity, "Se a guardado exitosamente", Toast.LENGTH_SHORT).show()
             }
 
@@ -148,6 +149,21 @@ class EditarMedicamentoFragment : Fragment() {
             Toast.makeText(activity, "Los campos deben de ser rellenados", Toast.LENGTH_SHORT)
                 .show()
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun segundaDosis(hora: String, intervalo: Int): String{
+        var localTime = LocalTime.parse(hora, DateTimeFormatter.ISO_LOCAL_TIME)
+        var result = localTime.hour + intervalo
+        var test = result
+        if (result >= 24){
+            test -= 24
+            return ("${0 + test}:${localTime.minute}")
+        }else{
+            return "${result}:${localTime.minute}"
+        }
+
+
     }
 
     private fun showTimePickerDialog() {

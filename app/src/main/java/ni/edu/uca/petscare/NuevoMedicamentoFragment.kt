@@ -1,6 +1,7 @@
 package ni.edu.uca.petscare
 
 import android.content.Intent
+import android.icu.text.SimpleDateFormat
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +17,8 @@ import ni.edu.uca.petscare.dao.DaoMedicamento
 import ni.edu.uca.petscare.databinding.FragmentNuevoMedicamentoBinding
 import java.sql.Time
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -71,6 +74,21 @@ class NuevoMedicamentoFragment : Fragment() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
+    fun segundaDosis(hora: String, intervalo: Int): String{
+        var localTime = LocalTime.parse(hora, DateTimeFormatter.ISO_LOCAL_TIME)
+        var result = localTime.hour + intervalo
+        var test = result
+        if (result >= 24){
+            test -= 24
+            return ("${0 + test}:${localTime.minute}")
+        }else{
+            return "${result}:${localTime.minute}"
+        }
+    }
+
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun iniciar() {
         fbinding.editTextDate.setOnClickListener{showDatePickerDialog()}
         fbinding.etHoraPrimNuevMed.setOnClickListener{showTimePickerDialog()}
@@ -87,10 +105,11 @@ class NuevoMedicamentoFragment : Fragment() {
             val intervalo = fbinding.etIntervaloNuevoMed.text.toString().toInt()
             val horaInicial = fbinding.etHoraPrimNuevMed.text.toString()
             val fechaFin = fbinding.editTextDate.text.toString()
+            val siguienteDosis = segundaDosis(horaInicial, intervalo)
             Log.wtf("NUEVO_MEDICAMENTO", ">>>>>>>>>>>$horaInicial")
 
             val date = LocalDate.parse(fechaFin, DateTimeFormatter.ISO_LOCAL_DATE)
-            if(daoMedicamentos.agregarMedic(idMascota, medicamento, intervalo, horaInicial, date)){
+            if(daoMedicamentos.agregarMedic(idMascota, medicamento, intervalo, horaInicial, date, siguienteDosis)){
                 Toast.makeText(activity,"Se a guardado exitosamente", Toast.LENGTH_SHORT).show()
             }
             limpiar()

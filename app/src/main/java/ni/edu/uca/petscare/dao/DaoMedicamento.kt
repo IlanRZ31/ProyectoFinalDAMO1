@@ -23,7 +23,8 @@ class DaoMedicamento() : Parcelable {
         nombreMedicamento: String,
         intervaloTiempo: Int,
         horaInicial: String,
-        fechaFin: LocalDate
+        fechaFin: LocalDate,
+        siguienteDosis: String
     ): Boolean {
         var horaInicio = obtenerHora(horaInicial)
         val idMedic = crearIdMedic()
@@ -39,7 +40,8 @@ class DaoMedicamento() : Parcelable {
                     nombreMedicamento,
                     intervaloTiempo,
                     horaInicio,
-                    fechaFin
+                    fechaFin,
+                    siguienteDosis
                 )
             listMedicamento.add(medic)
             return true
@@ -131,7 +133,8 @@ class DaoMedicamento() : Parcelable {
         nombreMedicamento: String,
         intervaloTiempo: Int,
         horaInicial: String,
-        fechaFin: LocalDate
+        fechaFin: LocalDate,
+        siguienteDosis: String
     ): Boolean {
         try {
             val horaInit = obtenerHora(horaInicial)
@@ -143,6 +146,7 @@ class DaoMedicamento() : Parcelable {
                     listMedicamento[i].intervaloTiempo = intervaloTiempo
                     listMedicamento[i].horaInicial = horaInit
                     listMedicamento[i].fechaFin = fechaFin
+                    listMedicamento[i].siguienteDosis = siguienteDosis
                     return true
                 }
                 i++

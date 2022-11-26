@@ -76,7 +76,7 @@ class MostrarMedicamentosFragment : Fragment() {
 
         fbinding.rvMedicamentos.layoutManager = LinearLayoutManager(context)
         fbinding.rvMedicamentos.setHasFixedSize(true)
-        fbinding.rvMedicamentos.adapter = MedicamentoAdapter(daoMedicamento, daoMedicamento.mostrarMedic(idMascota), fbinding.root)
+        fbinding.rvMedicamentos.adapter = MedicamentoAdapter(daoMedicamento, daoMedicamento.mostrarMedic(idMascota) ,fbinding.root)
     }
 
     override fun onResume() {

@@ -41,11 +41,13 @@ class MedicamentoAdapter(var daoMedic: DaoMedicamento, val medicList: ArrayList<
     inner class MediacamenoHolder(view: View) : RecyclerView.ViewHolder(view) {
         private var tvMeddicina = view.findViewById<TextView>(R.id.tvNombreMedicamentoRecycler)
         private var tvHora = view.findViewById<TextView>(R.id.tvHoraDosisPendienteRV)
+        private var tvDosis = view.findViewById<TextView>(R.id.tvSiguienteMedRecycler)
         private var fragMedicamento = view.findViewById<ConstraintLayout>(R.id.frag_medicamentos)
 
         fun load(medic: Medicamento, view: View, daoMedic: DaoMedicamento) {
             tvMeddicina.text = medic.nombreMedicamento
             tvHora.text = "Hora: ${medic.horaInicial.hours.toString()}:${medic.horaInicial.minutes.toString()}"
+            tvDosis.text = "Siguiente hora: ${medic.siguienteDosis}"
             fragMedicamento.setOnClickListener {
                 val action = MostrarMedicamentosFragmentDirections.acMostrarMedicamentosEditarMedicamentos(medic.idMedicamento, daoMedic)
                 Navigation.findNavController(view).navigate(action)

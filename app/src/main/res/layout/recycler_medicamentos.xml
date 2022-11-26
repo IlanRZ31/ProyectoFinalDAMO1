@@ -5,8 +5,7 @@
     android:id="@+id/frag_medicamentos"
     style="@style/Widget.PetsCare.RecyclerView"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/tvNombreMedicamentoRecycler"
@@ -33,7 +32,23 @@
         android:text="@string/hora"
         android:textColor="@color/white"
         android:textSize="19sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvNombreMedicamentoRecycler"/>
+        app:layout_constraintBottom_toBottomOf="@id/tvSiguienteMedRecycler"
+        app:layout_constraintTop_toBottomOf="@+id/tvNombreMedicamentoRecycler"
+        tools:layout_editor_absoluteX="0dp" />
 
+    <TextView
+        android:id="@+id/tvSiguienteMedRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:paddingStart="40dp"
+        android:text="Siguiente dosis:"
+        android:textColor="@color/white"
+        android:textSize="19sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvHoraDosisPendienteRV"
+        app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
