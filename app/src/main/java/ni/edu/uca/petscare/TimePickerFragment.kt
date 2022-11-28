@@ -22,6 +22,15 @@ class TimePickerFragment(val listener: (String)-> Unit): DialogFragment(), TimeP
     }
 
     override fun onTimeSet(view: TimePicker, hourOfDay: Int, minute: Int) {
-        listener("$hourOfDay:$minute")
+        if(hourOfDay >= 0 && hourOfDay < 10 && minute > 9){
+            listener("0$hourOfDay:$minute")
+        }else if(hourOfDay >= 0 && hourOfDay < 10 && minute < 10){
+            listener("0$hourOfDay:0$minute")
+        }else if(hourOfDay > 9 && minute < 10){
+            listener("$hourOfDay:0$minute")
+        }else{
+            listener("$hourOfDay:$minute")
+        }
+
     }
 }

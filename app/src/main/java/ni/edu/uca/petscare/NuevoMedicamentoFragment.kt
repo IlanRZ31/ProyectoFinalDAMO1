@@ -82,7 +82,8 @@ class NuevoMedicamentoFragment : Fragment() {
             test -= 24
             return ("${0 + test}:${localTime.minute}")
         }else{
-            return "${result}:${localTime.minute}"
+
+            return ("${result}:${localTime.minute}")
         }
     }
 
