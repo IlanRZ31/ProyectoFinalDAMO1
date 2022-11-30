@@ -225,59 +225,59 @@ class EditarMedicamentoFragment : Fragment() {
                         ).show()
                     }
                 }
-            }
+            }else{
+                var tiempo = "${medicamento?.horaInicial?.hours}:${medicamento?.horaInicial?.minutes}"
+                fbinding.etEditMedicamento.setText(medicamento?.nombreMedicamento)
+                fbinding.etIntervaloEditMed.setText(medicamento?.intervaloTiempo.toString())
+                fbinding.etHoraPrimeraEditar.setText(tiempo)
+                fbinding.etFechaFinEdit.setText(daoMedicamento.obtenerFechaFin(medicamento!!))
 
-        }else{
-            var tiempo = "${medicamento?.horaInicial?.hours}:${medicamento?.horaInicial?.minutes}"
-            fbinding.etEditMedicamento.setText(medicamento?.nombreMedicamento)
-            fbinding.etIntervaloEditMed.setText(medicamento?.intervaloTiempo.toString())
-            fbinding.etHoraPrimeraEditar.setText(tiempo)
-            fbinding.etFechaFinEdit.setText(daoMedicamento.obtenerFechaFin(medicamento!!))
-
-            fbinding.etFechaFinEdit.setOnClickListener { showDatePickerDialog() }
-            fbinding.etHoraPrimeraEditar.setOnClickListener { showTimePickerDialog() }
-            fbinding.btnGuardarEditMed.setOnClickListener {
-                if (!medicamentoEliminado) {
-                    save()
-                } else {
-                    Toast.makeText(
-                        activity,
-                        "No se puede guardar porque \n el medicamento a sido eliminado",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-            fbinding.btnEliminarEditMed.setOnClickListener {
-                if (!medicamentoEliminado) {
-                    try {
-                        val confirmarAlert = AlertDialog.Builder(context)
-                            .setTitle("ELIMINAR MEDICAMENTO")
-                            .setMessage("¿Esta seguro que desea este medicamento?")
-                            .setIcon(R.drawable.ic_warning)
-                            .setPositiveButton("Si") { _, _ ->
-                                eliminar()
-                            }
-                            .setNegativeButton("No") { _, _ ->
-                                Toast.makeText(
-                                    context,
-                                    "Abortado",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }.create()
-                        confirmarAlert.show()
-                    } catch (ex: Exception) {
-                        ex.printStackTrace()
-                        Toast.makeText(activity, "Error al borrar medicamento", Toast.LENGTH_SHORT)
-                            .show()
+                fbinding.etFechaFinEdit.setOnClickListener { showDatePickerDialog() }
+                fbinding.etHoraPrimeraEditar.setOnClickListener { showTimePickerDialog() }
+                fbinding.btnGuardarEditMed.setOnClickListener {
+                    if (!medicamentoEliminado) {
+                        save()
+                    } else {
+                        Toast.makeText(
+                            activity,
+                            "No se puede guardar porque \n el medicamento a sido eliminado",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-                }else {
-                    Toast.makeText(
-                        activity,
-                        "No se puede eliminar porque \n el medicamento ya sido eliminado",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                }
+                fbinding.btnEliminarEditMed.setOnClickListener {
+                    if (!medicamentoEliminado) {
+                        try {
+                            val confirmarAlert = AlertDialog.Builder(context)
+                                .setTitle("ELIMINAR MEDICAMENTO")
+                                .setMessage("¿Esta seguro que desea este medicamento?")
+                                .setIcon(R.drawable.ic_warning)
+                                .setPositiveButton("Si") { _, _ ->
+                                    eliminar()
+                                }
+                                .setNegativeButton("No") { _, _ ->
+                                    Toast.makeText(
+                                        context,
+                                        "Abortado",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }.create()
+                            confirmarAlert.show()
+                        } catch (ex: Exception) {
+                            ex.printStackTrace()
+                            Toast.makeText(activity, "Error al borrar medicamento", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }else {
+                        Toast.makeText(
+                            activity,
+                            "No se puede eliminar porque \n el medicamento ya sido eliminado",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             }
+
         }
     }
 
