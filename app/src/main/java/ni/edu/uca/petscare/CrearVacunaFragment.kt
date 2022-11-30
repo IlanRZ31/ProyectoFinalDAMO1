@@ -116,7 +116,7 @@ class NuevaVacunaFragment : Fragment() {
             fbinding.etFechaProgramada.setText("$year-$month-$day")
         }else if(validacion ==false){
             fbinding.etFechaProgramada.setText("")
-            Toast.makeText(activity, "La fecha seleccionada es menor a la actual", Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, "La fecha seleccionada es menor o igual a la actual", Toast.LENGTH_LONG).show()
         }
     }
     @RequiresApi(Build.VERSION_CODES.O)

@@ -348,10 +348,7 @@ class EditarMedicamentoFragment : Fragment() {
         if (day >= 1 && day <= 9 && month > 9 && validacion == true) {
             fbinding.etFechaFinEdit.setText("$year-$month-0$day")
 
-        }
-        if (day >= 1 && day <= 9 && month >= 1 && month <= 9) {
-
-        } else if (day >= 1 && day <= 9 && month >= 1 && month <= 9 && validacion == true) {
+        }else if (day >= 1 && day <= 9 && month >= 1 && month <= 9 && validacion == true) {
 
             fbinding.etFechaFinEdit.setText("$year-0$month-0$day")
 

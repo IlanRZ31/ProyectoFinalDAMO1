@@ -77,8 +77,16 @@ class DaoVacuna() : Parcelable {
     fun obtenerFechaVacunacion(vacuna: Vacuna): String {
         var fecha = ""
         try {
-            fecha =
-                "${vacuna.fechaVacunacion.year}-${vacuna.fechaVacunacion.month.value}-${vacuna.fechaVacunacion.dayOfMonth}"
+
+            if (vacuna.fechaVacunacion.dayOfMonth >= 1 && vacuna.fechaVacunacion.dayOfMonth <= 9 && vacuna.fechaVacunacion.month.value >9){
+                fecha = "${vacuna.fechaVacunacion.year}-${vacuna.fechaVacunacion.month.value}-0${vacuna.fechaVacunacion.dayOfMonth}"
+            }else if (vacuna.fechaVacunacion.dayOfMonth >= 1 && vacuna.fechaVacunacion.dayOfMonth <= 9 && vacuna.fechaVacunacion.month.value >=1 && vacuna.fechaVacunacion.month.value <=9){
+                fecha = "${vacuna.fechaVacunacion.year}-0${vacuna.fechaVacunacion.month.value}-0${vacuna.fechaVacunacion.dayOfMonth}"
+            }else if (vacuna.fechaVacunacion.dayOfMonth >9 && vacuna.fechaVacunacion.month.value >=1 && vacuna.fechaVacunacion.month.value <=9){
+                fecha = "${vacuna.fechaVacunacion.year}-0${vacuna.fechaVacunacion.month.value}-${vacuna.fechaVacunacion.dayOfMonth}"
+            }else{
+                fecha = "${vacuna.fechaVacunacion.year}-${vacuna.fechaVacunacion.month.value}-${vacuna.fechaVacunacion.dayOfMonth}"
+            }
         }catch (ex:Exception){
             ex.printStackTrace()
         }

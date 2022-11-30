@@ -62,8 +62,16 @@ class EditarMascotaFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun iniciar() {
         var mascota: Mascota? = daoMascota.buscarMascotaID(idMascota)
-        var fecha =
-            "${mascota?.fechaNacimiento?.year}-${mascota?.fechaNacimiento?.month?.value}-${mascota?.fechaNacimiento?.dayOfMonth}"
+        var fecha = ""
+        if (mascota?.fechaNacimiento?.dayOfMonth!! >= 1 && mascota?.fechaNacimiento?.dayOfMonth!! <= 9 && mascota?.fechaNacimiento.month?.value!! >9){
+            fecha = "${mascota?.fechaNacimiento?.year}-${mascota?.fechaNacimiento?.month?.value}-0${mascota?.fechaNacimiento?.dayOfMonth}"
+        }else if (mascota?.fechaNacimiento?.dayOfMonth!! >= 1 && mascota?.fechaNacimiento?.dayOfMonth!! <= 9 && mascota?.fechaNacimiento.month?.value!! >=1 && mascota?.fechaNacimiento.month?.value!! <=9){
+            fecha = "${mascota?.fechaNacimiento?.year}-0${mascota?.fechaNacimiento?.month?.value}-0${mascota?.fechaNacimiento?.dayOfMonth}"
+        }else if (mascota?.fechaNacimiento?.dayOfMonth!! >9 && mascota?.fechaNacimiento.month?.value!! >=1 && mascota?.fechaNacimiento.month?.value!! <=9){
+            fecha = "${mascota?.fechaNacimiento?.year}-0${mascota?.fechaNacimiento?.month?.value}-${mascota?.fechaNacimiento?.dayOfMonth}"
+        }else{
+            fecha = "${mascota?.fechaNacimiento?.year}-${mascota?.fechaNacimiento?.month?.value}-${mascota?.fechaNacimiento?.dayOfMonth}"
+        }
         fbinding.etENombre.setText(mascota?.nombre)
         fbinding.etERaza.setText(mascota?.raza)
         fbinding.etEPeso.setText(mascota?.peso.toString())

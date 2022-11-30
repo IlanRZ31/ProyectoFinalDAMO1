@@ -81,8 +81,16 @@ class DaoMedicamento() : Parcelable {
     fun obtenerFechaFin(medicamento: Medicamento): String {
         var fechaFin = ""
         try {
-            fechaFin =
-                "${medicamento.fechaFin.year}-${medicamento.fechaFin.month.value}-${medicamento.fechaFin.dayOfMonth}"
+
+            if (medicamento.fechaFin.dayOfMonth >= 1 && medicamento.fechaFin.dayOfMonth <= 9 && medicamento.fechaFin.month.value >9){
+                fechaFin = "${medicamento.fechaFin.year}-${medicamento.fechaFin.month.value}-0${medicamento.fechaFin.dayOfMonth}"
+            }else if (medicamento.fechaFin.dayOfMonth >= 1 && medicamento.fechaFin.dayOfMonth <= 9 &&medicamento.fechaFin.month.value >=1 && medicamento.fechaFin.month.value <=9){
+                fechaFin = "${medicamento.fechaFin.year}-0${medicamento.fechaFin.month.value}-0${medicamento.fechaFin.dayOfMonth}"
+            }else if (medicamento.fechaFin.dayOfMonth >9 && medicamento.fechaFin.month.value >=1 && medicamento.fechaFin.month.value <=9){
+                fechaFin = "${medicamento.fechaFin.year}-0${medicamento.fechaFin.month.value}-${medicamento.fechaFin.dayOfMonth}"
+            }else{
+                fechaFin = "${medicamento.fechaFin.year}-${medicamento.fechaFin.month.value}-${medicamento.fechaFin.dayOfMonth}"
+            }
         } catch (ex: Exception) {
             ex.printStackTrace()
         }
